@@ -7,7 +7,7 @@ import numpy as np
 import sklearn.datasets
 import sklearn.metrics
 import sklearn.model_selection
-import sklearn.neighbors
+import sklearn.naive_bayes
 
 
 from typing import Iterable
@@ -17,16 +17,12 @@ from typing import Iterable
 # Class for holding each model dataset
 class model_dataset:
 
-    def __init__(self, data:Iterable, labels:Iterable, p:int, k_neighbors:int, random_seed:int) -> None:
+    def __init__(self, data:Iterable, labels:Iterable, random_seed:int) -> None:
         self.data = data
         self.labels = labels
 
         # Defining the random seed
         self.random_seed = random_seed
-
-        # Defining the common parameters
-        self.p = p
-        self.k_neighbors = k_neighbors
         
         # Splitting the model dataset into train/test groups
         self.train_data, self.test_data, self.train_labels, self.test_labels = sklearn.model_selection.train_test_split(
@@ -71,86 +67,68 @@ wine_model.plot()
 
 
 # SCIKIT-LEARN MODEL IMPLEMENTATION
-sk_knn = sklearn.neighbors.KNeighborsClassifier(
-    metric="minkowski",
-    p=breast_cancer_model.p,
-    n_jobs=1,
-    n_neighbors=breast_cancer_model.k_neighbors
-)
+sk_nb = sklearn.naive_bayes.GaussianNB()
 
 # Train the model
-sk_knn.fit(breast_cancer_model.train_data, breast_cancer_model.train_labels)
+sk_nb.fit(breast_cancer_model.train_data, breast_cancer_model.train_labels)
 
 # Test the model
-predicted_labels = sk_knn.predict(breast_cancer_model.test_data)
+predicted_labels = sk_nb.predict(breast_cancer_model.test_data)
 
 # Model analysis
 breast_cancer_model.analysis(predicted_labels)
 
 
 # OWN MODEL IMPLEMENTATION
-class knn():
-
-    def __init__(self, p:int, k_neighbors:int) -> None:
-        self.p = p
-        self.k_neighbors = k_neighbors
-
+class naive_bayes():
 
     def __minkowski(self, u:Iterable, v:Iterable) -> float:
         if len(u) != len(v):
             raise ValueError("Vectors of different sizes passed as arguments")
-
+        
         # distance = 0
         # for i in range(0, len(u)):
         #     distance += np.power(np.abs(u[i] - v[i]), self.p)
-
+        
         distance = np.sum(np.power(np.abs(np.subtract(u, v)), self.p))
 
-        distance = np.power(distance, np.divide(1, self.p))
+        distance = np.power(distance, np.divide(1, p))
 
         return distance
 
 
     def fit(self, data, labels) -> None:
-        # Stores the data passed
         self.data = data
         self.labels = labels
-
+    
 
     def predict(self, data) -> tuple:
-        # List for the predicted labels
         labels = list()
-
-        # Passes for each instance in data
         for instance in data:
-            # Calculates the distance for each instance in the fit data
             distances = list()
             for i in range(0, len(self.data)):
                 distances.append((self.__minkowski(instance, self.data[i]), self.labels[i]))
-
-            # Sorts the distances 
+            
             distances.sort(key=lambda x: x[0])
 
-            # Takes the K-Nearest Neighbors and makes an election with their classes
             votes = {k: 0 for k in np.unique(self.labels)}
             for i in range(0, self.k_neighbors):
                 votes[distances[i][1]] += 1
-
+            
             # print(votes, max(*votes.items(), key=lambda x: x[1])[0])
 
-            # Takes the K winners
             labels.append(max(*votes.items(), key=lambda x: x[1])[0])
-
+        
         return tuple(labels)
 
 
-own_knn = knn(p=breast_cancer_model.p, k_neighbors=breast_cancer_model.k_neighbors)
+own_nb = naive_bayes()
 
 # Train the model
-own_knn.fit(breast_cancer_model.train_data, breast_cancer_model.train_labels)
+own_nb.fit(breast_cancer_model.train_data, breast_cancer_model.train_labels)
 
 # Test the model
-predicted_labels = own_knn.predict(breast_cancer_model.test_data)
+predicted_labels = own_nb.predict(breast_cancer_model.test_data)
 
 # Model analysis
 breast_cancer_model.analysis(predicted_labels)
