@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <title>IPsecCisco</title>
+  </head>
+  <body>
+    <h2>Prática de IPsec com CISCO Packet Tracer</h2>
+    <br>
+    <span style="font-weight: bold;"> Roteadores utilizados: 2811</span><br>
+    <br>
+    <h2>CENÁRIO:</h2>
+    <img src="http://www.cisco.com/c/dam/en/us/support/docs/routers/1700-series-modular-access-routers/71462-rtr-l2l-ipsec-split-1.gif"
+      alt="rtr-l2l-ipsec-split-1.gif"><br>
+    <br>
+    <br>
+    <table style="text-align: left; width: 100%; background-color: rgb(255, 255, 153);"
+      cellspacing="2" cellpadding="2" border="1">
+      <tbody>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(255, 255, 204);">
+            <h2>INSTRUÇÕES:</h2>
+            O cenário inicial já está fornecido em um arquivo pkt (Cisco Packet
+            Tracer ) no AVA.<br>
+            <br>
+            Caso queria criar o cenário sem usar o arquivo pronto, escolha as
+            portas dos roteadores conforme abaixo:<br>
+            <br>
+            <span style="font-weight: normal;">(Fa0/0)&nbsp; <span style="font-weight: bold;">RA</span>&nbsp;
+              (Fa0/1) <span style="font-weight: bold;">---</span> (Fa0/0)&nbsp;
+            </span><span style="font-weight: normal;"><span style="font-weight: bold;">R</span>&nbsp;
+              (</span><span style="font-weight: normal;">Fa0/1)</span> <span style="font-weight: bold;">---</span>
+            <span style="font-weight: normal;">(Fa0/1)&nbsp; <span style="font-weight: bold;">RB</span>&nbsp;
+              (Fa0/0)<br>
+              <br>
+              Aplique os scripts mostrados abaixo nos roteadores. Os PCs já
+              estão configurados.<br>
+              <br>
+              Para aplicar o script:<br>
+              <br>
+              Clique no Roteador onde irá aplicar o SCRIPT.<br>
+              Digite &lt;ENTER&gt;<br>
+              Faça um copy-and-paste do SCRIPT.<br>
+              <br>
+              <br>
+            </span> <span style="font-weight: bold;"></span></td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <hr style="width: 100%; height: 2px;">
+    <h3><big style="color: rgb(102, 102, 0);">Script: RouterA (PARIS)</big><br>
+    </h3>
+    <hr style="width: 100%; height: 2px;"><big>&nbsp; </big><br>
+    <span style="color: #009900;">!ROTEADOR PARIS</span><br>
+    enable<br>
+    configure terminal<br>
+    hostname PARIS<br>
+    !<br>
+    <span style="color: #009900;">!DEFINE A FORMA DE AUTENTICACAO</span><br>
+    crypto isakmp policy 1<br>
+    encr aes<br>
+    <b style="color: #3333ff;">authentication pre-share</b><br>
+    group 2<br>
+    exit<br>
+    <b style="color: #3333ff;">crypto isakmp key TESTE address 10.0.0.2</b><br>
+    !<br>
+    <span style="color: #009900;">!DEFINE A FORMA DE PROTECAO DOS DADOS
+      (TRANSFORMACAO)</span><br>
+    <b>crypto ipsec transform-set <span style="color: #cc0000;">SECUREWAN</span>
+      esp-aes esp-sha-hmac</b><br>
+    crypto map <b style="color: #993399;">IPSECWAN</b> 100 ipsec-isakmp<br>
+    <b>set peer 10.0.0.2</b><br>
+    set pfs group2<br>
+    set security-association lifetime seconds 86400<br>
+    set transform-set <b style="color: #cc0000;">SECUREWAN</b><br>
+    <b>match address 100</b><br>
+    exit<br>
+    !<br>
+    <span style="color: #009900;">!DEFINE O TRAFEGO QUE SERA ENVIADO PARA VPN</span><br>
+    <b>access-list 100 permit ip 10.1.1.0 0.0.0.255 172.16.2.0 0.0.0.255</b><br>
+    !<br>
+    <span style="color: #009900;">!DEFINE A INTERFACE QUE FARA O TUNELAMENTO</span><br>
+    interface FastEthernet0/0<br>
+    ip address 10.1.1.2 255.255.255.0<br>
+    no shutdown<br>
+    exit<br>
+    interface FastEthernet0/1<br>
+    ip address 172.16.1.1 255.255.255.0<br>
+    <b>crypto map <span style="color: #993399;">IPSECWAN</span></b><br>
+    no shutdown<br>
+    exit<br>
+    ip route 0.0.0.0 0.0.0.0 172.16.1.2<br>
+    end <br>
+    <br>
+    <hr style="width: 100%; height: 2px;">
+    <h3 style="color: rgb(102, 102, 0);"><big>Script RouterB (NEWYORK)<br>
+      </big></h3>
+    <hr style="width: 100%; height: 2px;"> <br>
+    <p> <span style="color: #009900;"></span><span style="color: #009900;">!ROTEADOR
+        NEWYORK</span> </p>
+    enable<br>
+    configure terminal<br>
+    hostname NEWYORK<br>
+    !<br>
+    <span style="color: #009900;">!DEFINE A FORMA DE AUTENTICACAO</span><br>
+    crypto isakmp policy 1<br>
+    encr aes<br>
+    <b style="color: #3333ff;">authentication pre-share</b><br>
+    group 2<br>
+    exit<br>
+    <b style="color: #3333ff;">crypto isakmp key TESTE address 172.16.1.1</b><br>
+    !<br>
+    <b>crypto ipsec transform-set <span style="color: #cc0000;">SECUREWAN</span>
+      esp-aes esp-sha-hmac</b><br>
+    !<br>
+    <span style="color: #009900;">!DEFINE A FORMA DE PROTECAO DOS DADOS
+      (TRANSFORMACAO)</span><br>
+    crypto map <b style="color: #993399;">IPSECWAN</b> 100 ipsec-isakmp<br>
+    <b>set peer 172.16.1.1</b><br>
+    set pfs group2<br>
+    set security-association lifetime seconds 86400<br>
+    set transform-set <b style="color: #cc0000;">SECUREWAN</b><br>
+    <b>match address 100</b><br>
+    exit<br>
+    !<br>
+    <span style="color: #009900;">!DEFINE O TRAFEGO QUE SERA ENVIADO PARA VPN</span><br>
+    <b>access-list 100 permit ip 172.16.2.0 0.0.0.255 10.1.1.0 0.0.0.255</b><br>
+    !<br>
+    <span style="color: #009900;">!DEFINE A INTERFACE QUE FARA O TUNELAMENTO</span><br>
+    interface FastEthernet0/0<br>
+    ip address 172.16.2.1 255.255.255.0<br>
+    no shutdown<br>
+    exit <br>
+    !<br>
+    interface FastEthernet0/1<br>
+    ip address 10.0.0.2 255.255.255.0<br>
+    crypto map <b style="color: #993399;">IPSECWAN</b><br>
+    no shutdown<br>
+    exit<br>
+    ip route 0.0.0.0 0.0.0.0 10.0.0.1<br>
+    end<br>
+    <br>
+    <br>
+    <hr style="width: 100%; height: 2px;">
+    <h3><big><span style="color: rgb(102, 102, 0);">Script Roteador Internet
+          (ISP)</span><br>
+      </big></h3>
+    <hr style="width: 100%; height: 2px;"><span style="color: #009900;">!ROTEADOR
+      ISP (NAO TEM IPSEC)</span><br>
+    enable<br>
+    configure terminal<br>
+    hostname Internet<br>
+    !<br>
+    interface FastEthernet0/0<br>
+    ip address 172.16.1.2 255.255.255.0<br>
+    no shutdown<br>
+    exit<br>
+    interface FastEthernet0/1<br>
+    ip address 10.0.0.1 255.255.255.0<br>
+    no shutdown<br>
+    exit<br>
+    end <br>
+    <br>
+    <h2><span style="font-weight: bold;"></span></h2>
+    <hr style="width: 100%; height: 2px;">
+    <h2 style="color: rgb(153, 102, 51);"><span style="font-weight: bold;">RELATÓRIO:</span></h2>
+    <hr style="width: 100%; height: 2px;"><br>
+    <big><span style="font-weight: bold; color: rgb(204, 102, 0);">1) Antes de
+        gerar qualquer tráfego entre os computadores verifique o estado do túnel
+        IPsec:</span></big><br>
+    <p>Copie o resultado dos comandos a seguir no seu relatório:<br>
+    </p>
+    <span style="font-weight: bold; text-decoration: underline;">No Router A:</span><br>
+    <ul>
+      <li> show crypto map</li>
+      <li> show crypto ipsec transform set</li>
+      <li> show crypto isakmp sa</li>
+    </ul>
+    <br>
+    <span style="font-weight: bold; text-decoration: underline;">No Router B:</span><br>
+    <ul>
+      <li> show crypto map</li>
+      <li> show crypto ipsec transform set</li>
+      <li> show crypto <big>isakmp</big><big> sa</big></li>
+    </ul>
+    <p> </p>
+    <br>
+    <p> <big><span style="font-weight: bold; color: rgb(204, 102, 0);">2)
+          Mostre a informação sobre a Política e a Associação de Segurança
+          criada nos roteadores do túnel:</span></big><big><br>
+      </big></p>
+    <p>Efetue um ping entre os computadores em PARIS e NEWYORK.</p>
+    <ul>
+      <li>No PC0: Desktop - Command Promp: ping 172.16.2.2</li>
+    </ul>
+    Em seguida, verifique novamente o estado na associação de segurança (copie o
+    resultado no relatório):<br>
+    <br>
+    <span style="font-weight: bold; text-decoration: underline;">No Router A:</span><br>
+    <ul>
+      <li> show crypto <big>isakmp</big><big> sa</big></li>
+      <li> show crypto ipsec sa</li>
+    </ul>
+    <span style="font-weight: bold; text-decoration: underline;">No Router B:</span><br>
+    <ul>
+      <li> show crypto isakmp<big> sa</big></li>
+      <li> show crypto ipsec sa</li>
+    </ul>
+    <p>Analisando os comandos acima, copie o código SPI do tráfego enviado de: </p>
+    <ul>
+      <li>SPI DE PARIS PARA NEWYORK</li>
+      <li>SPI NEWYORK PARA PARIS<br>
+      </li>
+    </ul>
+    <big> <br>
+    </big><big> <span style="color: rgb(204, 153, 51); font-weight: bold;">3<span
+          style="color: rgb(204, 102, 0);">) Usando o modo simulador, capture os
+          pacotes durante o PING:</span></span><br>
+    </big>
+    <ul>
+      <li><big> <span style="color: #009900;">Configuração da captura: Edit
+            Filters: <span style="font-weight: bold; text-decoration: underline;">Misc</span>:
+            ISAKMP + IPsec + UDP, <span style="font-weight: bold; text-decoration: underline;">IPv4</span>:
+            ICMP (já configurado no PKT fornecido)</span></big></li>
+    </ul>
+    <p>Para cada um dos 4 segmentos mostrados a seguir responda as perguntas:</p>
+    <ul>
+      <li>Quais são os endereços IP de origem e destino?<br>
+      </li>
+      <li>Qual o número do protocolo (campo PRO no cabeçalho IP)?</li>
+      <li>Você consegue ver que o pacote é ICMP? (S/N)</li>
+    </ul>
+    <p></p>
+    <div style="margin-left: 40px;"> a) Entre o HOST e o RouterA<br>
+      b) Entre o RouterA e a Internet<br>
+      c) Entre a Internet e o RouterB<br>
+      d) Entre o RouterB e o HOST</div>
+    <big> <br>
+      <span style="color: rgb(204, 102, 0); font-weight: bold;">4) Responda as
+        seguintes perguntas:</span><br>
+      <br>
+    </big>
+    <p style="margin-left: 40px;">a) Os pacotes ICMP enviados pelo computador
+      estão protegidos fora do trajeto do túnel? <br>
+    </p>
+    <p style="margin-left: 40px;"> b) Dentro do túnel é possível obsverar que se
+      trata de um pacote ICMP?</p>
+    <p style="margin-left: 40px;">c) Dentro do túnel é possível observar o
+      endereço IP dos computadores que estão fazendo a comunicação?</p>
+    <p style="margin-left: 40px;">d) Qual o código SPI observado no pacote
+      enviado do Roteador de PARIS para NEWYORK? (ver o passo b do exer&#263;icio 4)</p>
+    <p style="margin-left: 40px;">e) Qual o código SPI observado no pacote
+      enviado do Roteador de NEWYORK para PARIS? (ver o passo c do exer&#263;icio 4)</p>
+    <p><br>
+    </p>
+    <br>
+    <br>
+    <big> <br>
+    </big><br>
+    <br>
+    <br>
+    <br>
+  </body>
+</html>

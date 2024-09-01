@@ -1,0 +1,447 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <title>Criptografia - Edgard Jamhour</title>
+  </head>
+  <body vlink="blue" link="blue"> <br>
+    <table style="width: 80%;" border="1">
+      <tbody>
+        <tr>
+          <td><b>Criptografia, Hash e Assinatura Digital com Open SSL</b></td>
+        </tr>
+        <tr>
+          <td> OpenSSL é um toolkit que implementa o Secure Sockets Layer (SSL
+            v2/v3) e o Transport Layer Security (TLS v1).<br>
+            &nbsp;Além de fornecer uma biblioteca em C para suportar o
+            desenvolvimento de aplicações que utilizam o SSL, o toolkit inclui
+            um utilitário de comando de linha que permite:<br>
+            <ol>
+              <li>Criar chaves RSA, DH e DSA</li>
+              <li>Criar certificados X.509 certificates, CSRs e CRLs</li>
+              <li>Calcular Message Digests</li>
+              <li>Criptografar e Descriptografar com Algorítmos</li>
+              <li>Um cliente e um servidor genérico para testar SSL/TLS</li>
+              <li>Manipular email assinado e criptgrafadoc com S/MIME</li>
+            </ol>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <br>
+    <table style="width: 80%;" cellpadding="0" border="1">
+      <tbody>
+        <tr>
+          <td colspan="1" rowspan="1"><br>
+          </td>
+          <td style="font-weight: bold; background-color: #66ff99;  ">Extensões
+            de Certificados:<br>
+          </td>
+          <td valign="top"><span style="font-style: italic;"><span style="font-weight: bold;"></span><span
+                style="font-weight: bold;">DER</span>: <span style="font-weight: bold;">D</span>istinghished
+              <span style="font-weight: bold;">E</span>ncoding <span style="font-weight: bold;">R</span>ules:
+              Representação binária de certificados X509<br>
+              <br>
+            </span><span style="font-style: italic;"><span style="font-weight: bold;">PEM</span>:
+              <span style="font-weight: bold;">P</span>rivacy <span style="font-weight: bold;">E</span>nhanced
+              <span style="font-weight: bold;">M</span>ail: Certificados <span
+                style="font-weight: bold;">DER</span> codificados em Base64.<br>
+              <br>
+              <span style="font-weight: bold;">PCKS#7</span>: Crypographic
+              Message Syntax Standard: Permite incluir uma cadeia de
+              certificação completa<br>
+              <br>
+            </span><span style="font-style: italic;"><span style="font-weight: bold;">PCKS#12</span>:
+              Personal Information Exchange Format: Inclui o certificado e sua
+              chave privada</span><span style="font-style: italic;"><br>
+              <br>
+            </span><em></em> </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <table style="width: 80%;" cellspacing="0" cellpadding="0" border="1">
+      <tbody>
+        <tr>
+          <td colspan="2" rowspan="1">
+            <h3>Certificados X509 Auto-Assinados (Root)</h3>
+            <h3> </h3>
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 20%; background-color: white;">Certificados
+            Auto-Assinados:</td>
+          <td> Gera um CSR (Certificate Server Request) para uma chave privada
+            existente:<br>
+            <br>
+            <span style="color: #3333ff;"><em>openssl req </em><em>-new </em><em>-key
+                <span style="font-weight: bold;">CHAVEPRIVADA</span> </em></span><em><span
+                style="color: #3333ff;">-out <span style="font-weight: bold;">CSR<br>
+                </span></span>&nbsp;<br>
+            </em><em>[-outform PEM|DER] <br>
+            </em><em>[-keyform PEM|DER]<br>
+              <br>
+            </em>A chave e a requisição são geradas em um único comando: <br>
+            <br>
+            <span style="color: #3333ff;"><em>openssl req -newkey rsa:1024
+                -nodes -keyout&nbsp; </em><em style="font-weight: bold;">CHAVEPRIVADA</em></span><em><span
+                style="color: #3333ff;"> -out <span style="font-weight: bold;">CSR
+                  </span>-subj </span><span style="font-weight: bold;"><span style="color: #3333ff;">"Nome
+                  X509"</span><br>
+                <br>
+              </span></em> <em></em><em>[-newkey dsa:file]</em>
+            <hr><em></em>Examina uma solicitação de certificado (CSR):&nbsp; <br>
+            <br>
+            <em><span style="color: #3333ff;">openssl req -in <span style="font-weight: bold;">CSR</span>
+                -text -verify -noout<br>
+              </span><br>
+            </em>Verifica a assinatura da solicitação de certificado (CSR): <br>
+            &nbsp;<br>
+            <em><span style="color: #3333ff;">openssl req -in <span style="font-weight: bold;">CSR</span>
+                -noout -verify -key </span><span style="font-weight: bold;"><span
+                  style="color: #3333ff;">CHAVEPRIVADA<br>
+                  <br>
+                </span></span></em>ou apenas:<em><span style="font-weight: bold;"><span
+                  style="color: #3333ff;"><span style="color: black;"><br>
+                  </span></span></span></em><br>
+            <em><span style="color: #3333ff;">openssl req -in <span style="font-weight: bold;">CSR</span>
+                -noout -verify </span><span style="font-weight: bold;"><span style="color: #3333ff;"></span></span></em>
+            <hr>Gera um certificado Auto-Assinado<em><span style="font-weight: bold;"><br>
+                <br>
+              </span></em><span style="color: #3333ff;"><em>openssl req -x509
+                -nodes </em><em>-days <span style="font-weight: bold;">VALIDADE</span>
+              </em></span><em><span style="color: #3333ff;">-new -nodes -key <span
+                  style="font-weight: bold;">CHAVEPRIVADA</span>&nbsp; -out </span><span
+                style="font-weight: bold;"><span style="color: #3333ff;">CERTIFICADO</span><br>
+                <br>
+              </span></em>Opção para gerar certificados CA:<br>
+            <br>
+            <span style="color: rgb(0, 0, 153);"> -extensions v3_ca<br>
+            </span><br>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" rowspan="1"> Exemplos:<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="background-color:" white;"="">Gera um CSR:</td>
+          <td style="vertical-align: top; background-color: white;" valign="top">
+            <br>
+            Gera uma chave privada e uma solicitação de certificado (CSR): <br>
+            <br>
+            <span style="color: #3333ff;"><em>openssl genrsa -out
+                chaveprivada.pem 1024 <br>
+                <br>
+                openssl req -new -key </em><em>chaveprivada</em><em>.pem -out
+                csr.pem</em> &nbsp;&nbsp; </span>&nbsp; <br>
+            <br>
+            <span style="font-style: italic;"></span>A chave e a requisição são
+            geradas em um único comando: <br>
+            <br>
+            <span style="color: #3333ff;"><em>openssl req -newkey rsa:1024
+                -nodes -keyout </em><em>chaveprivada</em></span><em><span style="color: #3333ff;">.pem
+                -out csr.pem</span><br>
+              <br>
+            </em><span style="font-style: italic;">Opção -nodes: a chave privada
+              não é protegida por uma palavra secreta<br>
+              <br>
+            </span> </td>
+        </tr>
+        <tr>
+          <td>Visualiza um CSR:</td>
+          <td valign="top">Examina uma solicitação de certificado (CSR):&nbsp; <br>
+            <br>
+            <em>o<span style="color: #3333ff;">penssl req -in csr.pem -text
+                -verify -noout</span><br>
+              <br>
+            </em>Verifica se a chave privada corresponde com a assinatura da
+            solicitação de certificado (CSR):&nbsp; <br>
+            <br>
+            <em><span style="color: #3333ff;">openssl req -in csr.pem -noout
+                -verify -key chaveprivada.pem</span><br>
+              <br>
+            </em>ou apenas verifica se a chave pública confere com a assinatura:<br>
+            <br>
+            <em><em><span style="color: #3333ff;">openssl req -in csr.pem -noout
+                  -verify<br>
+                  <br>
+                </span></em></em>Extrai a chave pública do CSR:<br>
+            <br>
+            <span style="color: #3333ff;">openssl req -pubkey -in csr.pem</span><br>
+            <em><em><span style="color: #3333ff;"><br>
+                  <br>
+                </span></em></em> </td>
+        </tr>
+        <tr>
+          <td>Certificado Auto-Assinado:</td>
+          <td valign="top">Gera um certificado auto-assinado a partir de um CSR
+            e uma chave pré-criada<br>
+            <br>
+            <em><span style="color: #3333ff;">openssl x509 -in csr.pem -out
+                cert.pem -req -signkey chaveprivada.pem -days 365</span><br>
+              <br>
+            </em> Gera um certificado auto-assinado com uma chave
+            pré-criada:&nbsp; <br>
+            <br>
+            <span style="color: #3333ff;"><em>openssl req -x509 -nodes </em><em>-days
+                365 </em></span><em><span style="color: #3333ff;">-new&nbsp;
+                -key chaveprivada.pem&nbsp; -out certificado.pem</span><br>
+              <br>
+            </em><span style="color: black;">Idem ao comando acima, mas uma nova
+              chave é gerada com o comando<br>
+            </span><em><span style="color: black;"><br>
+              </span> <span style="color: #3333ff;">openssl req -x509 </span></em><span
+              style="color: #3333ff;"><em>-nodes </em><em>-days 365 </em></span><em><span
+                style="color: #3333ff;">-newkey rsa:1024 -keyout
+                chaveprivada.pem -out certificado.pem </span><br>
+              <br>
+            </em><span style="color: black;">Gera um certificado auto-assinado
+              que irá funcionar como CA</span><em><span style="color: black;"><br>
+                <br>
+              </span> <span style="color: #3333ff;">openssl req -x509 </span></em><span
+              style="color: #3333ff;"><em>-nodes </em><em>-days 365 </em></span><em><span
+                style="color: #3333ff;">-newkey rsa:1024 -keyout
+                chaveprivada.pem -out certificado.pem -extensions v3_ca</span><br>
+              <br>
+            </em> <span style="font-style: italic;"> </span>Para passar as
+            informações do CSR adicione o parametro -subj ao comando
+            acima:&nbsp;&nbsp;<em> <br>
+            </em><br>
+            <em><span style="color: #3333ff;">-subj
+                "/C=BR/ST=Parana/L=Curitiba/O=PUCPR/OU=PPGIA/CN=www.pucpr.org"<br>
+              </span><br>
+            </em>Para visualizar as informações do certificado:<br>
+            <br>
+            <em style="color: #3333ff;">openssl x509 -noout -in cert.pem -text<br>
+              <br>
+            </em> </td>
+        </tr>
+      </tbody>
+    </table>
+    &nbsp;<br>
+    <br>
+    <table style="width: 80%;" cellspacing="0" cellpadding="0" border="1">
+      <tbody>
+        <tr>
+          <td colspan="1" rowspan="1"><br>
+          </td>
+          <td style="font-weight: bold; background-color: #ffcc00;  ">Exercicio
+            5:</td>
+          <td valign="top">Gere um script que execute as seguintes funções:<br>
+            <br>
+            a) Gere uma chave privada<br>
+            b) Gere um CSR<br>
+            c) Mostre o conteúdo do CSR<br>
+            d) Verifique a validade do CSR<br>
+            e) Crie um certificado auto assinado a partir do CSR<br>
+            f) Mostre o conteúdo do certificado auto assinado.<br>
+            <br>
+            <span style="font-weight: bold; text-decoration: underline;">
+              Relatório - Parte 5:</span> <br>
+            <br>
+            Inclua no seu relatório o resultado do comando f, e responda as
+            seguintes perguntas:<br>
+            <br>
+            1) O CSR inclui a chave privada?<br>
+            2) Por que é necessário usar a chave privada para gerar o CSR?<br>
+            3) Que tipo de validação é feita no passo d?<br>
+            <br>
+            <span style="font-style: italic;"></span><em></em> </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <table style="width: 80%;" cellspacing="0" cellpadding="0" border="1">
+      <tbody>
+        <tr>
+          <td colspan="2" rowspan="1">
+            <h3>Certificados X509 Assinados por Terceiros (Não-Root)</h3>
+            <h1> </h1>
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 20%; background-color: white;" white;"="">Sintaxe:</td>
+          <td style="vertical-align: top; background-color: white;" valign="top">Assina
+            uma requisição de certificado CSR utilizando um certificado de CA: <br>
+            <br>
+            <em><span style="color: #3333ff;">openssl x509 -days <span style="font-weight: bold;">VALIDADE</span>
+                -req -in <span style="font-weight: bold;">CSR</span> -CA <span
+                  style="font-weight: bold;">CERTIFICADO_CA</span> -CAkey <span
+                  style="font-weight: bold;">CHAVE_PRIVADA_CA</span>
+                -CAcreateserial -out </span><span style="font-weight: bold;"><span
+                  style="color: #3333ff;">CERTIFICADO<br>
+                </span><br>
+              </span></em>Verifica um certificado X509:<em><span style="font-weight: bold;"><br>
+                <br>
+              </span></em><em><span style="color: #3333ff;">openssl verify
+                -verbose <span style="font-weight: bold;">-CAfile</span> </span><span
+                style="font-weight: bold;"><span style="color: #3333ff;">CERTIFICADO_CA
+                  CERTIFICADO</span><br>
+                <br>
+              </span></em>Extrai a chave pública do Certificado:<em><span style="font-weight: bold;"><br>
+              </span></em><span style="color: rgb(0, 0, 153);">openssl x509
+              -pubkey -noout -in <span style="font-weight: bold;">CERTIFICADO</span>&nbsp;
+              &gt; <span style="font-style: italic;"><span style="font-weight: bold;">CHAVE_PUBLICA</span></span></span><em><span
+                style="font-weight: bold;"></span></em><br>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" rowspan="1"> Exemplos<br>
+          </td>
+        </tr>
+        <tr>
+          <td>Assina um CSR</td>
+          <td style="vertical-align: top; background-color: white;" valign="top">Assina
+            uma requisição de certificado utilizando um certificado de CA: <br>
+            - csr.pem é a requisição de certificado (subject)<br>
+            - cacert.pem é quem emite o certificado (issuer)<br>
+            - cakey.pem é a chave privada do emissor<br>
+            - cert.pem é o certificado X509 do "subject" gerado como resultado <br>
+            <br>
+            <em><span style="color: #3333ff;">openssl x509 -days <span style="font-weight: bold;">360</span>
+                -req -in <span style="font-weight: bold;">csr.pem</span> -CA <span
+                  style="font-weight: bold;">cacert.pem</span> -CAkey <span style="font-weight: bold;">cakey.pem</span>
+                -CAcreateserial -out <span style="font-weight: bold;">cert.pem<br>
+                  <br>
+                </span></span> - <span style="color: black;">A opção
+                CAcreateserial gera um arquivo cert.srl que contém o número
+                serial único para o certificado</span></em></td>
+        </tr>
+        <tr>
+          <td>Informações:<br>
+            <br>
+          </td>
+          <td style="vertical-align: top; background-color: white;" valign="top">
+            <span style="color: rgb(0, 0, 153);"></span><br>
+            a) Mostra quem emitiu o certificado<br>
+            <span style="color: rgb(0, 0, 153);"> openssl x509 -noout -in
+              cert.pem -issuer</span><br>
+            b) Mostra para quem o certificado foi emitido<br>
+            <span style="color: rgb(0, 0, 153);"> openssl x509 -noout -in
+              cert.pem -subject</span><br>
+            c) Mostra a validade do certificado<br>
+            <span style="color: rgb(0, 0, 153);"> openssl x509 -noout -in
+              cert.pem -dates</span><br>
+            d) Mostra um conjunto de informações<br>
+            <span style="color: rgb(0, 0, 153);"> openssl x509 -noout -in
+              cert.pem -issuer -subject -dates</span><br>
+            e) Mostra o valor do hashing<br>
+            <span style="color: rgb(0, 0, 153);"> openssl x509 -noout -in
+              cert.pem -hash</span><br>
+            f) Mostra o fingerprint:<br>
+            <span style="color: rgb(0, 0, 153);"> openssl x509 -noout -in
+              cert.pem -fingerprint<br>
+              <br>
+            </span><span style="color: rgb(0, 0, 153);"></span> </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">Extrai a chave pública, criptografa e
+            descriptografa<br>
+          </td>
+          <td style="vertical-align: top;"><br>
+            Extrai e salva a chave pública<br>
+            <span style="color: rgb(0, 0, 153);">openssl x509 -pubkey -noout -in
+              cert.pem &gt; pubkey.pem<br>
+            </span><br>
+            <span style="color: rgb(0, 0, 153);"><span style="color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans-serif; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Criptografa
+                com a Chave Pública e Descriptografa com a Privada</span><br style="color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans-serif; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
+              <em style="color: rgb(0, 0, 153); font-family: Arial, Helvetica, sans-serif; line-height: 40px; font-size: medium; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">openssl
+                rsautl -in teste.txt -out teste.rsa -encrypt -pubin -inkey
+                pubkey.pem<br>
+                openssl rsautl -in teste.rsa -out teste.rec -decrypt -inkey
+                skey.pem<br>
+              </em> </span></td>
+        </tr>
+        <tr>
+          <td style="background-color:" white;"="">Verificação do Certificado:</td>
+          <td style="vertical-align: top; background-color: white;" valign="top"><br>
+            <span style="color: rgb(0, 0, 153);"><span style="color: black;">Verifica
+                se o certificado foi assinado por uma CA</span><br>
+              openssl verify -verbose -CAfile <span style="font-weight: bold;">cacert.pem</span>
+              <span style="font-weight: bold;">cert.pem<br>
+                <br>
+              </span></span>Converte o formato do certificado de PEM (base64)
+            para DER (binário)<br>
+            <span style="color: rgb(0, 0, 153);">openssl x509 -in cert.pem
+              -outform der -out cert.der<br>
+              <br>
+            </span>Verifica o fingerprint do certificado<br>
+            <span style="color: rgb(0, 0, 153);">sha1sum cert.der <span style="color: black;"><br>
+                ou&nbsp; </span><br>
+              openssl sha1 cert.der<br>
+              <br>
+              <span style="font-weight: bold;"></span> </span> </td>
+        </tr>
+        <tr>
+          <td style="background-color:" white;"="">Certificado de Cliente:</td>
+          <td style="vertical-align: top; background-color: white;" valign="top"><br>
+            Seta um certificado para funcionar como certificado SSL de Cliente <br>
+            <em><span style="color: #3333ff;">openssl x509 -in <span style="font-weight: bold;">cert.pem</span>
+                -addtrust clientAuth -setalias "Kim Jong-un" -out </span><span
+                style="font-weight: bold;"><span style="color: #3333ff;">kimjong.pem</span><br>
+                <br>
+              </span></em> Converte o formato do certificado para PCSK12 (inclui
+            a chave privada no certificado): <br>
+            <em style="color: #3333ff;">openssl pkcs12 -export -in <span style="font-weight: bold;">kimjong.pem</span>
+              -inkey <span style="font-weight: bold;">kimjongprivatekey.pem</span>
+              -out <span style="font-weight: bold;">kimjong.p12</span> -name <span
+                style="font-weight: bold;">“North Korean dictator”</span></em><br>
+            <br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <table style="width: 80%;" cellspacing="0" cellpadding="0" border="1">
+      <tbody>
+        <tr>
+          <td colspan="1" rowspan="1"><br>
+          </td>
+          <td style="font-weight: bold; background-color: #ffcc00;  ">Exercicio
+            6:</td>
+          <td valign="top">Etapas do estabelecimento de um canal seguro entre um
+            cliente e um servidor Web:<br>
+            <br>
+            Gere um script que execute as seguintes funções:<br>
+            <br>
+            a) Gera um certificado auto assinado CA ROOT: <br>
+            <em>-subj
+"/C=BR/ST=Parana/L=Curitiba/O=PUCPR/OU=Informatica/CN=www.pucpr.org"<br>
+              <br>
+            </em> b) Gera um CSR para um servidor Web<br>
+            <em>-subj
+"/C=BR/ST=Parana/L=Curitiba/O=PUCPR/OU=Politecnica/CN=politecnica.pucpr.org"<br>
+            </em><span style="font-style: italic;"><br>
+            </span>c) Assina o CSR com o certificado CA ROOT<br>
+            <br>
+            d) Verifica se o certificado do servidor Web foi assinado pela CA
+            ROOT<br>
+            <br>
+            e) Imprime as seguintes informações do certificado:&nbsp; <span style="color: rgb(0, 0, 153);">Issuer,
+              Subject e Validade<br>
+              <br>
+            </span>f) Extrai a chave pública do certificado do servidor Web<br>
+            <br>
+            g) Criptografa o segredo "Seu Nome" usando a chave pública do
+            servidor Web<br>
+            <br>
+            h) Descriptografa o segredo usando a chave privada do servidor Web<br>
+            <br>
+            <span style="font-weight: bold; text-decoration: underline;">
+              Relatório - Parte 5:</span> <br>
+            <br>
+            Inclua no seu relatório o script e o resultado do passo <span style="font-weight: bold;">e)</span><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+Funcionário: chave do funcionario, nome, cpf, data_nascimento, telefone (multivalorado) e e-mail (multivalorado),
+data de vinculo, salário total (derivada)
+	|-RELAÇÃO (N-N) ENTRE ELES -> POSSUI ATRIBUTO SALÁRIO
+Cargo do funcionário: chave..., nome
+
+
+Cliente: Chave do cliente, nome, telefone (multivalorado) e e-mail (multivalorado).
+PF: CPF, data de nascimento, sexo, idade (derivado).
+PJ: CNPJ, data de abertura e razão social (derivado).
+
+Departamento: Chave do departamento, nome.
+
+Filtro: Chave do filtro, nome.
+
+Produto: Chave do produto, nome, preço de compra, preço de venda, (chave de 
+departamento), (chave de filtro), marca e ano.
+
+Senha: (chave do usuário), hash de senha e salt.
+
+Endereço: Chave do endereço, (chave do usuário), logradouro, cidade, UF, país, CEP, 
+complemento e referência.
+
+Compra: Chave da compra, valor sem frete (derivado), valor total (derivado), data da 
+compra, meio de pagamento, (chave do endereço), (chave do usuário) e status.
+
+Forma de pagamento: chave da forma de pagamento, nome
+
+Operação: (chave da compra), (chave da transportadora), (chave do estoque), 
+quantidade, custo de frete.
+
+Galpão: Chave do galpão, nome, logradouro, cidade, UF, país, CEP.
+
+Estoque: Chave do estoque, (chave do produto), (chave do galpão), quantidade, data de 
+compra.
+
+Transportadora: Chave da transportadora, nome, CNPJ, razão social (derivado) e data 
+de cadastro, taxa (com subatributos de taxa fixa e taxa per km).

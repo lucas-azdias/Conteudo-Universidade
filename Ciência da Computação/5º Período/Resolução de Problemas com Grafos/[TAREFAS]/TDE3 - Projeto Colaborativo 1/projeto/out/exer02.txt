@@ -1,0 +1,47 @@
+Ordem: 6046
+Tamanho: 16132
+
+
+20 indivíduos com maiores graus de saída:
+daniel.muschar@enron.com: 718
+andrew.wu@enron.com: 612
+david.forster@enron.com: 597
+technology.enron@enron.com: 349
+julie.clyatt@enron.com: 342
+neil.davies@enron.com: 339
+david.oxley@enron.com: 336
+veronica.espinoza@enron.com: 312
+r..harrington@enron.com: 242
+james.derrick@enron.com: 234
+liz.taylor@enron.com: 217
+drew.fossum@enron.com: 216
+tthoman@aga.org: 211
+tammie.schoppe@enron.com: 201
+darron.giron@enron.com: 200
+l..denton@enron.com: 178
+danielle.marcinkowski@enron.com: 168
+rhonda.denton@enron.com: 164
+lorna.brennan@enron.com: 163
+donna.lowry@enron.com: 151
+
+20 indivíduos com maiores graus de entrada:
+james.derrick@enron.com: 183
+lindy.donoho@enron.com: 128
+mike.carson@enron.com: 119
+martin.cuilla@enron.com: 87
+drew.fossum@enron.com: 80
+f..brawner@enron.com: 68
+steven.harris@enron.com: 57
+kimberly.watson@enron.com: 54
+tk.lohman@enron.com: 49
+scott.neal@enron.com: 48
+lorraine.lindberg@enron.com: 47
+mcuilla@enron.com: 46
+michelle.lokay@enron.com: 44
+judy.townsend@enron.com: 39
+john.lavorato@enron.com: 37
+rob.walls@enron.com: 35
+andrea.ring@enron.com: 33
+brad.mckay@enron.com: 33
+jan.moore@enron.com: 33
+paul.y'barbo@enron.com: 33

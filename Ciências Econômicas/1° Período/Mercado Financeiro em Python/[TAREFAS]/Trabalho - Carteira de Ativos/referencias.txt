@@ -1,0 +1,34 @@
+OBS.:
+	BOTAR LINK EM TODOS OS GRAFICOS
+	COLOCAR LEGENDA EM TODOS OS GRAFICOS (USAR LIBRE OFFICE OU DOCX GOOGLE OU EDITOR DE PDF)
+	RECRIAR GRAFICOS EM PYTHON MATPLOTLIB COM UNIDADES DEFINIDAS E NOME (IDENTIFICANDO)
+	FORMATAR CERTINHO
+	EM PDF
+
+1.
+visao geral macroeconomica
+Xhttps://www.youtube.com/watch?v=roJCxZEGQFA&ab_channel=FernandoUlrich
+
+	inflaçao
+X	https://www.ibge.gov.br/explica/inflacao.php
+X	https://www.bls.gov/news.release/cpi.nr0.htm
+X	https://www.poder360.com.br/economia/inflacao-acelera-no-g20-em-2021-compare-os-indices/
+X	https://fred.stlouisfed.org/graph/?g=QeXn
+X	https://www.bcb.gov.br/estatisticas/grafico/graficoestatistica/precos
+X	https://www.youtube.com/watch?v=p2D7RqGeDrc&t=10s&ab_channel=FernandoUlrich 
+X	https://www.bridgewater.com/its-mostly-a-demand-shock-not-a-supply-shock-and-its-everywhere
+X	https://www.bis.org/publ/bisbull48.pdf
+X	https://pt.tradingeconomics.com/brazil/money-supply-m2
+X	https://pt.tradingeconomics.com/united-states/money-supply-m2
+X	https://fred.stlouisfed.org/series/DPRIME
+
+	dolar
+	https://youtu.be/oH-NkzDN4RM?t=406
+	https://www.youtube.com/watch?v=Bm0ndsiO7MQ&t=733s&ab_channel=FernandoUlrich 
+	https://www3.bcb.gov.br/CALCIDADAO/publico/corrigirPorIndice.do?method=corrigirPorIndice
+	https://www.bls.gov/data/inflation_calculator.htm
+	https://www.bcb.gov.br/conversao
+
+2.
+https://www.bcb.gov.br/content/focus/focus/R20220429.pdf
+https://www.economiaemdia.com.br/SiteEconomiaEmDia/Projecoes/Longo-Prazo

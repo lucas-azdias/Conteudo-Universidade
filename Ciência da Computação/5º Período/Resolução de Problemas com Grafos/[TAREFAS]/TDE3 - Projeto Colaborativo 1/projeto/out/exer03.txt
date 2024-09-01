@@ -1,0 +1,6 @@
+O grafo é Euleriano?
+Não
+
+Motivos (se não for Euleriano):
+	Tem pelo menos um nó com grau de saída diferente do grau de entrada;
+	Grafo desconectado.

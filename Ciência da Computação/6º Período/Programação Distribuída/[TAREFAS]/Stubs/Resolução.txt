@@ -1,0 +1,3 @@
+Stubs são softwares que abstraem a comunicação entre softwares de máquinas distintas, funcionando como interfaces para fazer chamadas por redes aparentarem ser chamadas locais.
+
+Eles são usados dentro dos middlewares, assim facilitando o desenvolvimento de software o qual não precisa se preocupar com a parte de chamadas por redes, já que, em sua perspectiva, aparentam ser locais.

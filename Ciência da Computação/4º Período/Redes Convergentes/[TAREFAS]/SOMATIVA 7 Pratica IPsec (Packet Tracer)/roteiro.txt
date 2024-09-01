@@ -1,0 +1,164 @@
+1) Antes de gerar qualquer tráfego entre os computadores verifique o estado do túnel IPsec:
+	No Router A:
+		show crypto map
+			Crypto Map IPSECWAN 100 ipsec-isakmp
+			Peer = 10.0.0.2
+			Extended IP access list 100
+				access-list 100 permit ip 10.1.1.0 0.0.0.255 172.16.2.0 0.0.0.255
+			Current peer: 10.0.0.2
+			Security association lifetime: 4608000 kilobytes/86400 seconds
+			PFS (Y/N): Y
+			Transform sets={
+					SECUREWAN,
+			}
+			Interfaces using crypto map IPSECWAN:
+					FastEthernet0/1
+
+		show crypto ipsec transform-set
+			Transform set SECUREWAN: {
+				{ esp-aes esp-sha-hmac  }
+			... }
+		
+		show crypto isakmp sa
+			IPv4 Crypto ISAKMP SA
+			dst             src             state          conn-id slot status
+
+			IPv6 Crypto ISAKMP SA
+
+
+	No Router B:
+		show crypto map
+			Crypto Map IPSECWAN 100 ipsec-isakmp
+			Peer = 172.16.1.1
+			Extended IP access list 100
+				access-list 100 permit ip 172.16.2.0 0.0.0.255 10.1.1.0 0.0.0.255
+			Current peer: 172.16.1.1
+			Security association lifetime: 4608000 kilobytes/86400 seconds
+			PFS (Y/N): Y
+			Transform sets={
+					SECUREWAN,
+			}
+			Interfaces using crypto map IPSECWAN:
+					FastEthernet0/1
+		
+		show crypto ipsec transform-set
+			Transform set SECUREWAN: {
+				{ esp-aes esp-sha-hmac  }
+			... }
+		
+		show crypto isakmp sa
+			IPv4 Crypto ISAKMP SA
+			dst             src             state          conn-id slot status
+
+			IPv6 Crypto ISAKMP SA
+
+
+2) Mostre a informação sobre a Política e a Associação de Segurança criada nos roteadores do túnel:
+	No Router A:
+		show crypto isakmp sa
+			IPv4 Crypto ISAKMP SA
+			dst             src             state          conn-id slot status
+			10.0.0.2        172.16.1.1      QM_IDLE           1018    0 ACTIVE
+
+
+			IPv6 Crypto ISAKMP SA
+		
+		show crypto ipsec sa
+			inbound esp sas:
+			  spi: 0x92E196DF(2464257759)
+				transform: esp-aes esp-sha-hmac ,
+				in use settings ={Tunnel, }
+				conn id: 2004, flow_id: FPGA:1, crypto map: IPSECWAN
+				sa timing: remaining key lifetime (k/sec): (4525504/86217)
+				IV size: 16 bytes
+				replay detection support: N
+				Status: ACTIVE
+
+			outbound esp sas:
+			  spi: 0x2138B84C(557365324)
+				transform: esp-aes esp-sha-hmac ,
+				in use settings ={Tunnel, }
+				conn id: 2005, flow_id: FPGA:1, crypto map: IPSECWAN
+				sa timing: remaining key lifetime (k/sec): (4525504/86217)
+				IV size: 16 bytes
+				replay detection support: N
+				Status: ACTIVE
+
+
+	No Router B:
+		show crypto isakmp sa
+			IPv4 Crypto ISAKMP SA
+			dst             src             state          conn-id slot status
+			172.16.1.1      10.0.0.2        QM_IDLE           1085    0 ACTIVE
+
+
+			IPv6 Crypto ISAKMP SA
+		
+		show crypto ipsec sa
+			inbound esp sas:
+			  spi: 0x2138B84C(557365324)
+				transform: esp-aes esp-sha-hmac ,
+				in use settings ={Tunnel, }
+				conn id: 2004, flow_id: FPGA:1, crypto map: IPSECWAN
+				sa timing: remaining key lifetime (k/sec): (4525504/86025)
+				IV size: 16 bytes
+				replay detection support: N
+				Status: ACTIVE
+
+			outbound esp sas:
+			  spi: 0x92E196DF(2464257759)
+				transform: esp-aes esp-sha-hmac ,
+				in use settings ={Tunnel, }
+				conn id: 2005, flow_id: FPGA:1, crypto map: IPSECWAN
+				sa timing: remaining key lifetime (k/sec): (4525504/86025)
+				IV size: 16 bytes
+				replay detection support: N
+				Status: ACTIVE
+
+
+	SPI DE PARIS PARA NEWYORK: 0x2138B84C(557365324)
+	SPI NEWYORK PARA PARIS: 0x92E196DF(2464257759)
+
+
+3) Usando o modo simulador, capture os pacotes durante o PING:
+
+	Quais são os endereços IP de origem e destino?
+	Qual o número do protocolo (campo PRO no cabeçalho IP)?
+	Você consegue ver que o pacote é ICMP? (S/N)
+
+	a) Entre o HOST e o RouterA
+		1. SRC IP:10.1.1.1 DST IP:172.16.2.2
+		2. PRO:0x01 (ICMP)
+		3. Sim
+
+	b) Entre o RouterA e a Internet
+		1. SRC IP:172.16.1.1 DST IP:10.0.0.2
+		2. PRO:0x32 (IPsec ESP)
+		3. Não
+
+	c) Entre a Internet e o RouterB
+		1. SRC IP:172.16.1.1 DST IP:10.0.0.2
+		2. PRO:0x32 (IPsec ESP)
+		3. Não
+
+	d) Entre o RouterB e o HOST
+		1. SRC IP:10.1.1.1 DST IP:172.16.2.2
+		2. PRO:0x01 (ICMP)
+		3. Sim
+
+
+4) Responda as seguintes perguntas:
+	a) Os pacotes ICMP enviados pelo computador estão protegidos fora do trajeto do túnel?
+		Não
+	
+	b) Dentro do túnel é possível obsverar que se trata de um pacote ICMP?
+		Não
+	
+	c) Dentro do túnel é possível observar o endereço IP dos computadores que estão fazendo a comunicação?
+		Não
+	
+	d) Qual o código SPI observado no pacote enviado do Roteador de PARIS para NEWYORK? (ver o passo b do exerćicio 4)
+		ESP SPI:557365324 
+	
+	e) Qual o código SPI observado no pacote enviado do Roteador de NEWYORK para PARIS? (ver o passo c do exerćicio 4)
+		ESP SPI:2464257759 

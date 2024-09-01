@@ -1,0 +1,26 @@
+Entrega via google colab. Imprimir um pdf do notebook.
+1) Um analista reuniu vários relatórios de pesquisa sobre a MSFT e começou sua análise da empresa no final de agosto de 2007, quando o preço atual da MSFT era de US $ 28,27.
+
+Em um relatório de pesquisa, o analista ofereceu os seguintes fatos, opiniões e estimativas sobre a MSFT:
+
+O dividendo anual mais recente foi de 1,0 por ação. Durante o próximo ano, se espera mais dois dividendos trimestrais de  0,40, seguidos por dois dividendos trimestrais de 0,15 por ação. 
+Assuma que a taxa de crescimento dos dividendos é de 2%.
+
+A taxa de juros de longo prazo dos títulos americanos é de 3%.
+
+Nos EUA, assuma que a estimativa histórica do retorno de investir em ações é de 8 pontos percentuais em excesso com relação a renda fixa.
+
+
+a. Calcule o preço alvo da MSFT sem considerar o premio de risco acionario.
+
+b. Calcule o preço alvo da MSFT considerando o premio de risco acionario.
+
+c. Mostre se a ação da microsoft está subvalorizada ou sobrevalorizada em a) e b). 
+
+d. Discuta quais são as limitações desse tipo de analise.
+
+2) Escreva uma função para o modelo de dividendos de gordon que produza um preço alvo (arredondado em duas casas decimais). Dê tres exemplos de preço alvo utilizando a função.  
+
+3) Seja a função do modelo de gordon e os seguintes dados [premio de risco = 0.07, crescimento dos dividendos = 0.03 e dividendo inicial = 25]. Escreva um loop que pegue a lista de taxas livres de risco a seguir [0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1] e produza diferentes preços alvos. Qual a intuição que esse resultado quer passar?
+4) Seja a função do modelo de gordon e os seguintes dados [premio de risco = 0.07, taxa livre de risco = 0.02 e dividendo inicial = 25]. Escreva um loop que pegue a lista de crescimento de dividendos a seguir [0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08] e produza diferentes preços alvos. Qual a intuição que esse resultado quer passar?
+5) Escreva uma expressão condicional que avalie se um preço determinado está maior ou menor que um preço alvo; e então imprima uma frase explicando se a ação está acima ou abaixo do seu valor intrinseco. 

@@ -1,0 +1,382 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <title>Criptografia - Edgard Jamhour</title>
+    <link rel="stylesheet" href="../../../../../csspuc.css" type="text/css">
+  </head>
+  <body vlink="blue" link="blue"> <br>
+    <table class="CTable" border="1">
+      <tbody>
+        <tr class="TRow">
+          <td><b>Criptografia, Hash e Assinatura Digital com Open SSL</b></td>
+        </tr>
+        <tr>
+          <td class="CCel"> OpenSSL é um toolkit que implementa o Secure Sockets
+            Layer (SSL v2/v3) e o Transport Layer Security (TLS v1).<br>
+            &nbsp;Além de fornecer uma biblioteca em C para suportar o
+            desenvolvimento de aplicações que utilizam o SSL, o toolkit inclui
+            um utilitário de comando de linha que permite:<br>
+            <br>
+            <ol>
+              <li>Criar chaves RSA, DH e DSA</li>
+              <li>Criar certificados X.509 certificates, CSRs e CRLs</li>
+              <li>Calcular Message Digests</li>
+              <li>Criptografar e Descriptografar com Algorítmos</li>
+              <li>Um cliente e um servidor genérico para testar SSL/TLS</li>
+              <li>Manipular email assinado e criptgrafadoc com S/MIME</li>
+            </ol>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <table class="CTable" cellspacing="0" cellpadding="0" border="1">
+      <tbody>
+        <tr class="TRow">
+          <td colspan="2" rowspan="1">Algoritmos de Hashing (Digest)<br>
+          </td>
+        </tr>
+        <tr>
+          <td class="H1Cel">Sintaxe:</td>
+          <td class="CCel" width="985" valign="top"><br>
+            <em class="Command">openssl dgst
+              [-md5|-md4|-md2|-sha1|-sha|-mdc2|-ripemd160|-dss1] [-c] [-d]
+              [-hex] [-binary] [-out filename] [-sign filename] [-verify
+              filename] [-prverify filename] [-signature filename] [file...]</em><br>
+            <br>
+          </td>
+        </tr>
+        <tr class="TRow">
+          <td colspan="2" rowspan="1"> <b><span style="font-size: 14pt; font-family: Arial;">Exemplos</span></b>
+            :<br>
+          </td>
+        </tr>
+        <tr>
+          <td class="H1Cel">Hashing:</td>
+          <td class="CCel" width="985" valign="top"><br>
+            Geração do digest sem criptografia<br>
+            <em class="Command">openssl dgst -md5 teste.txt<br>
+              openssl dgst -sha -out teste.digest teste.txt</em><br>
+            <br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <table class="CTable" cellspacing="0" cellpadding="0" border="1">
+      <tbody>
+        <tr>
+          <td colspan="1" rowspan="1"><br>
+          </td>
+          <td style="font-weight: bold; background-color: rgb(255, 204, 0);" class="H1Cel">Exercicio
+            3:</td>
+          <td class="CCel" width="985" valign="top">Execute o script abaixo
+            (crypto3.sh) e em seguida, responda as perguntas do seu relatório.<br>
+            chmod +x crypto3.sh<br>
+            ./crypto3.sh<br>
+--------------------------------------------------------------------------------------------<br>
+            <span style="color: rgb(0, 102, 0); font-weight: bold;">#!/bin/bash
+              -x</span><br>
+            echo <span style="color: rgb(51, 51, 255); font-weight: bold;">"Isto
+              é um teste"</span> &gt; teste.txt<br>
+            openssl dgst -<span style="font-weight: bold;">md5</span> teste.txt<br>
+            openssl dgst -<span style="font-weight: bold;">sha256</span>
+            teste.txt<br>
+            openssl dgst -<span style="font-weight: bold;">sha1</span> teste.txt<br>
+            <br>
+            echo <span style="color: rgb(51, 51, 255); font-weight: bold;">"Isto
+              é um tsete"</span> &gt; teste.txt<br>
+            openssl dgst -<span style="font-weight: bold;">md5</span> teste.txt<br>
+            openssl dgst -<span style="font-weight: bold;">sha256</span>
+            teste.txt<br>
+            openssl dgst -<span style="font-weight: bold;">sha1</span> teste.txt<br>
+            <br>
+            echo <span style="color: rgb(51, 51, 255); font-weight: bold;">""</span>
+            &gt; teste.txt<br>
+            openssl dgst -<span style="font-weight: bold;">md5</span> teste.txt<br>
+            openssl dgst -<span style="font-weight: bold;">sha256</span>
+            teste.txt<br>
+            openssl dgst -<span style="font-weight: bold;">sha1</span> teste.txt<br>
+--------------------------------------------------------------------------------------------<br>
+            <br>
+            <span style="font-weight: bold; text-decoration: underline;">Relatório
+-
+              Parte 3: </span><br>
+            <br>
+            Inclua no seu relatório a saída do script e responda as seguintes
+            perguntas.<br>
+            <br>
+            1) O tamanho do hash (digest) depende do tamanho da mensagem?<br>
+            2) Qual o tamanho em bits do hash MD5 e do hash SHA1?<br>
+            3) Você observou o efeito avalanche nos algoritmos de hash? Todos os
+            três algoritmos tiveram este efeito?&nbsp; </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    &nbsp;<br>
+    <table class="CTable" cellspacing="0" cellpadding="0" border="1">
+      <tbody>
+        <tr class="TRow">
+          <td colspan="2" rowspan="1">Assinatura Digital com Criptografia
+            Assimétrica<br>
+          </td>
+        </tr>
+        <tr>
+          <td class="H1Cel">Preparação das Chaves:</td>
+          <td class="CCel" width="985" valign="top"><br>
+            O receptor prepara as chaves:<br>
+            <span style="color: rgb(0, 153, 0);"> </span><em class="Command">
+              openssl genrsa -out key.pem 1024 <br style="color: rgb(0, 153, 0);">
+              <span style="color: rgb(0, 153, 0);"></span>openssl rsa -in
+              key.pem -pubout -out pubkey.pem<br>
+            </em><br>
+          </td>
+        </tr>
+        <tr>
+          <td class="H1Cel">Assinatura Digital:</td>
+          <td class="CCel" width="985" valign="top"> <br>
+            Geração e verificação da assinatura digital:<br>
+            <em class="Command">openssl dgst -sha1 -sign key.pem -out
+              teste.sign&nbsp; teste.txt <br>
+              openssl dgst -sha1-verify pubkey.pem -signature teste.sign
+              teste.txt </em><br>
+            &nbsp; </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <table class="CTable" cellspacing="0" cellpadding="0" border="1">
+      <tbody>
+        <tr>
+          <td style="font-weight: bold; background-color: rgb(255, 204, 0);" class="H1Cel">Exercicio
+            4 (parte 1):</td>
+          <td class="CCel" width="985" valign="top">Complete o script abaixo
+            (crypto4.sh) com as ações da Alice, Bob e as duas tentativas de
+            ataque do Badboy<br>
+            <br>
+            <span style="font-weight: bold;"> Estrutura geral do Script</span><br>
+--------------------------------------------------------------------------------------------<br>
+            <span style="color: rgb(0, 102, 0); font-weight: bold;">#!/bin/bash
+              -x</span><br>
+            <br>
+            if [ <span style="color: rgb(204, 51, 204); font-weight: bold;">$#</span>
+            == 0 ]; then<br>
+            &nbsp;echo <span style="color: rgb(51, 51, 255); font-weight: bold;">"(i)
+              Iniciar, (a) Alice, (b) Bob&nbsp; (1) Badboy ataque 1 (2) Badboy
+              ataque 2"</span><br>
+            &nbsp;exit<br>
+            fi <br>
+            dir=<span style="color: rgb(204, 51, 204); font-weight: bold;">$HOME</span>/crypto4<br>
+            <span style="color: rgb(204, 51, 204); font-weight: bold;"></span><br>
+            if [ $1 == 'i' ]; then<br>
+            &nbsp; echo&nbsp; <span style="color: rgb(51, 51, 255); font-weight: bold;">"Inicializa
+              as pastas representando Alice, Bob e Badboy"<br>
+            </span>&nbsp; exit<br>
+            elif [ $1 == 'a' ]; then<br>
+            &nbsp; echo <span style="color: rgb(51, 51, 255); font-weight: bold;">"Alice
+              gera as chaves pública e privada"<br>
+              &nbsp; </span>echo <span style="color: rgb(51, 51, 255); font-weight: bold;">"Alice
+              assina a mensagem com a chave privada"</span> &nbsp; <br>
+            &nbsp; echo <span style="font-weight: bold; color: rgb(51, 51, 255);">"Alice
+              envia a mensagem e a assinatura para Bob"<br>
+            </span>&nbsp; exit<br>
+            elif [ $1 == 'b' ]; then<br>
+            &nbsp; echo <span style="color: rgb(51, 51, 255); font-weight: bold;">"Bob
+              verifica a mensagem de Alice usando a chave pública"<br>
+            </span>&nbsp; exit<br>
+            elif [ $1 == '1' ]; then<br>
+            &nbsp;<span style="color: rgb(51, 51, 255); font-weight: bold;"></span>
+            echo <span style="color: rgb(51, 51, 255); font-weight: bold;">"Badboy
+              (man-in-the-middle) intercepta a assinatura enviada por Alice"<br>
+              &nbsp; </span>echo <span style="color: rgb(51, 51, 255); font-weight: bold;">"Badboy
+              envia uma mensagem falsa para Bob com a assinatura de Alice"</span><span
+              style="color: rgb(51, 51, 255); font-weight: bold;">&nbsp;&nbsp; <br>
+              &nbsp; </span>exit<br>
+            elif [ $1 == '2' ]; then<br>
+            &nbsp; echo <span style="color: rgb(51, 51, 255); font-weight: bold;">"Badboy
+              gera a chave privada"<br>
+              &nbsp;</span> echo <span style="color: rgb(51, 51, 255); font-weight: bold;">"Badboy
+              gera uma mensagem falsa para Bob assinada com sua chave privada"</span>
+            &nbsp; <br>
+            &nbsp; echo <span style="color: rgb(51, 51, 255); font-weight: bold;">"Badboy
+              envia a mensagem falsa com sua assinatura para Bob dizendo-se
+              Alice"<br>
+            </span>&nbsp; exit<br>
+            fi<br>
+            <span style="font-weight: bold;"></span>--------------------------------------------------------------------------------------------<br>
+            <span style="font-weight: bold;"># Inicialização:</span><br>
+            &nbsp;rm -R -f crypto4<br>
+            &nbsp;mkdir crypto4<br>
+            &nbsp;cd crypto4<br>
+            &nbsp;mkdir alice<br>
+            &nbsp;mkdir bob<br>
+            &nbsp;mkdir badboy<br>
+&nbsp;--------------------------------------------------------------------------------------------<br>
+            <span style="font-weight: bold;"># Ações da Alice:</span> <br>
+            &nbsp;cd $dir/alice<br>
+            &nbsp;openssl genrsa -out alice_key.pem 1024<br>
+            &nbsp;openssl rsa -in alice_key.pem -pubout -out alice_pubkey.pem<br>
+            &nbsp;echo <span style="color: rgb(51, 51, 255); font-weight: bold;">"Mensagem
+              de Alice"</span> &gt; alice.txt<br>
+            &nbsp;openssl dgst -sha1 -sign alice_key.pem -out alice.sign
+            alice.txt <br>
+            &nbsp;cp alice_pubkey.pem $dir/bob<br>
+            &nbsp;cp alice.txt $dir/bob<br>
+            &nbsp;cp alice.sign $dir/bob<br>
+--------------------------------------------------------------------------------------------<br>
+            <span style="font-weight: bold;"># Ações do Bob:</span> <br>
+            &nbsp;cd $dir/bob<br>
+            &nbsp;openssl dgst -sha1 -verify alice_pubkey.pem -signature
+            alice.sign alice.txt<br>
+--------------------------------------------------------------------------------------------<br>
+            <span style="font-weight: bold;"># Ações do Badboy (Ataque 1):</span>
+            <br>
+            &nbsp;cp $dir/alice/alice.sign $dir/badboy<br>
+            &nbsp;cd $dir/badboy<br>
+            &nbsp;echo <span style="font-weight: bold; color: rgb(51, 51, 255);">"Mensagem
+              falsa da Alice"</span> &gt; alice.txt<br>
+            &nbsp;cp alice.txt $dir/bob<br>
+            &nbsp;cp alice.sign $dir/bob<br>
+--------------------------------------------------------------------------------------------<br>
+            <span style="font-weight: bold;"># Ações do Badboy (Ataque 2):</span>
+            <br>
+            &nbsp;cd $dir/badboy<br>
+            &nbsp;echo <span style="color: rgb(51, 51, 255); font-weight: bold;">"Mensagem
+              falsa da Alice 2" </span>&gt; alice.txt<br>
+            &nbsp;openssl genrsa -out badboy_key.pem 1024<br>
+            &nbsp;openssl dgst -sha1 -sign badboy_key.pem -out alice.sign
+            alice.txt <br>
+            &nbsp;cp alice.txt $dir/bob<br>
+            &nbsp;cp alice.sign $dir/bob<br>
+--------------------------------------------------------------------------------------------<br>
+            <span style="font-weight: bold;"></span></td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <table class="CTable" cellspacing="0" cellpadding="0" border="1">
+      <tbody>
+        <tr>
+          <td style="font-weight: bold; background-color: rgb(255, 204, 0);" class="H1Cel">Exercicio
+            4 (parte 2):</td>
+          <td class="CCel" width="985" valign="top">Efetue os seguintes testes
+            com o script:<br>
+            <br>
+            ./crypto4.sh i<br>
+            <span style="color: rgb(0, 153, 0);"># verifique o conteúdo das
+              pastas crypto4, alice, bob e badboy</span><br>
+            ./crypto.sh a<br>
+            <span style="color: rgb(0, 153, 0);"># verifique o conteúdo da pasta
+              alice</span><br>
+            ./crypto.sh b<br>
+            <span style="color: rgb(0, 153, 0);"># verifique o conteúdo da pasta
+              bob</span><br>
+            ./crypto.sh 1<br>
+            <span style="color: rgb(0, 153, 0);"> # verifique o conteúdo da
+              pasta babdoy</span><br>
+            ./crypto.sh b<br>
+            ./crypto.sh 2<br>
+            <span style="color: rgb(0, 153, 0);"> # verifique o conteúdo da
+              pasta babdoy</span><br>
+            <span style="font-weight: bold;"></span>/crypto.sh b<br>
+            <br>
+            <span style="font-weight: bold; text-decoration: underline;">Relatório
+-
+              Parte 4: </span><br>
+            <br>
+            Responda as seguintes perguntas:<br>
+            <br>
+            1) Alice poderia gerar sua assinatura usando sua chave pública ao
+            invés da privada?<br>
+            2) Por que o Ataque 1 do Badboy falhou?<br>
+            3) Por que o Ataque 2 do Badboy falhou?<br>
+            4) O que Badboy precisaria fazer para ter sucesso ao enviar uma
+            mensagem falsa para Bob em nome de Alice?<br>
+            <br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <table class="CTable" style="width: 90%;" cellspacing="0" cellpadding="0" border="1">
+      <tbody>
+        <tr>
+          <td style="font-weight: bold; background-color: #ffcc00; width: 20%;"
+            class="H1Cel">TDE I: <br>
+            <br>
+            QUIZ DOS STOOGES<br>
+            <br>
+            ATENÇÃO: <br>
+            <br>
+            Você precisa entregar <br>
+            apenas esta atividade. <br>
+            <br>
+            As demais serão <br>
+            feitas em AULA.</td>
+          <td class="CCel" width="985" valign="top">&nbsp; Resolva o <a href="quizstooges.html">QUIZ
+              dos Stooges</a><br>
+            <br>
+            &nbsp; <b>Problema</b>: Você recebeu uma mensagem e uma assinatura
+            digital.<br>
+            &nbsp; <br>
+            &nbsp; Você possui três chaves públicas: Moe, Larry e Curly<br>
+            <br>
+            &nbsp; Determine qual dos três Stooges enviou a mensagem.<br>
+            <br>
+            &nbsp; <b>Observações</b>: <br>
+            <ol>
+              <li>Assinatura digital está em formato base64 e precisa ser
+                convertida para binário.</li>
+              <li>Você sabe que a assinatura digital foi feita com SHA256 e RSA.</li>
+            </ol>
+            <p>&nbsp; <b>Entrega da atividade:</b></p>
+            &nbsp; Escreva um script similar que resolve o problema. <br>
+            <br>
+            &nbsp; O script deve conter os seguintes passos.<br>
+            <br>
+            &nbsp; <b><span style="color: #cc0000;"># PASSO 1: Salva as chaves
+                públicas em arquivo.</span></b><br>
+            <br>
+            &nbsp;&nbsp;&nbsp; Exemplo: <br>
+            <br>
+            <b><span style="color: #33cc00;">echo "</span></b><span style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">-----BEGIN
+              PUBLIC KEY-----</span><br style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+            <span style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDqdsSULdJXwpvB8usHwf1kGoy+</span><br
+              style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+            <span style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">UKD7ErT4tTRifhk/gqElet63aSVz0lOyMpJ8D0lQfuoTi6csKpPPjEZwiRpE6Rs/</span><br
+              style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+            <span style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">mlOWMaRkHQ0G1BtWLcdZp+u9JOXm486if5lrpe9r7mLgk25xY1pbMamZKOaMv7hT</span><br
+              style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+            <span style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">PkDIRq1CvurpMa7QGQIDAQAB</span><br
+              style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+            <span style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">-----END
+              PUBLIC KEY-----<b><span style="color: #33cc00;">" &gt;
+                  moe_pubkey.pem</span></b><br>
+              <br>
+            </span><br>
+            &nbsp; <b><span style="color: #cc0000;"># PASSO 2: Salva a
+                assinatura em arquivo e converte de base64 para binário.<br>
+                &nbsp;&nbsp; </span></b><br>
+            <b><span style="color: #cc0000;">&nbsp; # PASSO 3: Salva a mensagem
+                em arquivo<br>
+                <br>
+                &nbsp; # PASSO 4: Testa se a mensagem foi assinada com cada uma
+                das três chaves<br>
+                <br>
+                &nbsp; Copie o resultado do PASSO4 e inclua no final do seu
+                SCRIPT.<br>
+              </span></b>&nbsp; <br>
+            <br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

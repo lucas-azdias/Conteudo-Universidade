@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/main.js"></script>
+    </head>
+
+    <body>
+
+        <input type="number" id="addNum1" class="inputNum defaultFont">
+        <input type="number" id="addNum2" class="inputNum defaultFont">
+        <button onclick="add('addNum1', 'addNum2', 'addResult')" class="buttonCalc defaultFont"> + </button>
+        <span class="spanSign defaultFont"> = </span>
+        <input id="addResult" class="inputResult defaultFont" readonly>
+        <button onclick="clearInput('addNum1', 'addNum2', 'addResult')" class="buttonClear defaultFont">Limpar</button>
+        <br><br>
+
+        <input type="number" id="subNum1" class="inputNum defaultFont">
+        <input type="number" id="subNum2" class="inputNum defaultFont">
+        <button onclick="subtract('subNum1', 'subNum2', 'subResult')" class="buttonCalc defaultFont"> - </button>
+        <span class="spanSign defaultFont"> = </span>
+        <input id="subResult" class="inputResult defaultFont" readonly>
+        <button onclick="clearInput('subNum1', 'subNum2', 'subResult')" class="buttonClear defaultFont">Limpar</button>
+        <br><br>
+        
+        <input type="number" id="mulNum1" class="inputNum defaultFont">
+        <input type="number" id="mulNum2" class="inputNum defaultFont">
+        <button onclick="multiply('mulNum1', 'mulNum2', 'mulResult')" class="buttonCalc defaultFont"> * </button>
+        <span class="spanSign defaultFont"> = </span>
+        <input id="mulResult" class="inputResult defaultFont" readonly>
+        <button onclick="clearInput('mulNum1', 'mulNum2', 'mulResult')" class="buttonClear defaultFont">Limpar</button>
+        <br><br>
+        
+        <input type="number" id="divNum1" class="inputNum defaultFont">
+        <input type="number" id="divNum2" class="inputNum defaultFont">
+        <button onclick="divide('divNum1', 'divNum2', 'divResult')" class="buttonCalc defaultFont"> / </button>
+        <span class="spanSign defaultFont"> = </span>
+        <input id="divResult" class="inputResult defaultFont" readonly>
+        <button onclick="clearInput('divNum1', 'divNum2', 'divResult')" class="buttonClear defaultFont">Limpar</button>
+        <br><br>
+
+    </body>
+
+</html>

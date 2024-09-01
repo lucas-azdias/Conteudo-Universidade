@@ -1,0 +1,657 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <title>Criptografia - Edgard Jamhour</title>
+  </head>
+  <body vlink="blue" link="blue"> <br>
+    <table class="CTable" style="width: 90%;" border="1">
+      <tbody>
+        <tr class="TRow">
+          <td><b>Criptografia, Hash e Assinatura Digital com Open SSL</b></td>
+        </tr>
+        <tr>
+          <td class="CCel"> OpenSSL é um toolkit que implementa o Secure Sockets
+            Layer (SSL v2/v3) e o Transport Layer Security (TLS v1.0/v1.1/v1.2).<br>
+            <br>
+            Fornece uma biblioteca em C para suportar simplificar o
+            desenvolvimento de aplicações que utilizam o SSL/TLS<br>
+            <br>
+            Inclui um utilitário de comando de linha que permite:<br>
+            <ol>
+              <li>Criar chaves RSA, DH e DSA</li>
+              <li>Criar certificados X.509 certificates, CSRs e CRLs</li>
+              <li>Calcular Message Digests</li>
+              <li>Criptografar e Descriptografar com Algorítmos</li>
+              <li>Um cliente e um servidor genérico para testar SSL/TLS</li>
+              <li>Manipular email assinado e criptgrafadoc com S/MIME</li>
+            </ol>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <p> </p>
+    https://wiki.openssl.org/index.php/Command_Line_Utilities<br>
+    <p><br>
+    </p>
+    <table class="CTable" style="width: 90%;" cellspacing="0" cellpadding="0" border="1">
+      <tbody>
+        <tr class="TRow">
+          <td colspan="2" rowspan="1" style="vertical-align: top;"><b>Sintaxe
+              Geral dos Comandos Open SSL</b><br>
+          </td>
+        </tr>
+        <tr>
+          <td class="H1Cel">Sintaxe:&nbsp;</td>
+          <td class="CCel" valign="top">&nbsp;<br>
+            Algoritmos suportados: base64, blowfish (bf, bf-cbc, bf-ecb), des,
+            des3, idea, rc2, rc4, rc5. &nbsp;<br>
+            <span style="font-weight: bold;"><br>
+              openssl</span> [enc] ciphername [<span style="font-weight: bold;">-in</span>
+            filename] [<span style="font-weight: bold;">-out</span> filename]
+            [-d] [-a] [-K key] [-iv IV] [-p] [-P]&nbsp; <br>
+            <br>
+            Para obter informações sobre o algortimo digite:<br>
+            <br>
+            <b>openssl </b>ciphername <b>-help</b><br>
+            <br>
+          </td>
+        </tr>
+        <tr class="TRow">
+          <td colspan="2" rowspan="1" style="vertical-align: top;"> <b>Codificação
+              Binário-para-Texto</b><br>
+          </td>
+        </tr>
+        <tr>
+          <td class="H1Cel">Base64:</td>
+          <td class="CCel"> Base64 é um método para condificar qualquer
+            informação em caracteres imprimiveis (ASC II).<br>
+            <br>
+            Cada dígito Base64 representa 6 bits de dados.<br>
+            <br>
+            Base64 não criptografa, apenas codifica, por isso não precisa de
+            chave.<br>
+            <br>
+            O Base64 é mais compacto que uma representação em HEXADECIMAL
+            representado formato texto.<br>
+            <br>
+            O formato HEXADECIMAL (em texto) dobra o tamanho do arquivo,
+            enquanto que o Base64 aumenta em apenas 25% (cada 3 bytes originais
+            viram 4 bytes em Bas64).<br>
+            <br>
+            <hr><em class="Command"><span style="color: #3333ff;">openssl
+                base64&nbsp;-in teste.txt -out teste.b64 <br>
+              </span><br>
+            </em> <b>-d</b> indica decoficação (ou descriptografia)<em class="Command"><br>
+              <br>
+              <span style="color: #3333ff;">openssl&nbsp; base64&nbsp;-d -in
+                teste.b64 </span></em><span style="color: #3333ff;"><br>
+            </span><br>
+          </td>
+        </tr>
+        <tr class="TRow">
+          <td colspan="2" rowspan="1"><b>Criptografia Simétrica </b><br>
+          </td>
+        </tr>
+        <tr>
+          <td class="H1Cel">Sintaxe: <br>
+          </td>
+          <td class="CCel" valign="top"><br>
+            Criptografia com chave numérica:<br>
+            <br>
+            <em class="Command"><span style="font-weight: bold;">openssl</span>
+              ciphername </em><em class="Command">-a </em><em class="Command">
+              <span style="font-weight: bold;">-in</span> filename [<span style="font-weight: bold;">-out</span>
+              filename] -K key -iv IV <br>
+              <br>
+            </em>Descriptografia com chave numérica:<br>
+            <br>
+            <em class="Command"><span style="font-weight: bold;">openssl</span>
+              ciphername </em><em class="Command">-a </em><em class="Command">
+              <span style="font-weight: bold;">-d</span> <span style="font-weight: bold;">-in</span>
+              filename [<span style="font-weight: bold;">-out</span> filename]
+              -K key -iv IV <br>
+              <br>
+            </em> <b>-iv</b> é um nonce usado por algoritmos que fazem
+            embaralhamento de blocos (não é secreto)<br>
+            <br>
+            <b>-a</b> implica em codificação base64 será aplicada
+            automaticamente após a criptografia ou antes da descriptografia<br>
+            <br>
+            <hr><br>
+            Criptografia com chave gerada a partir de password:<br>
+            <br>
+            <em class="Command"><span style="font-weight: bold;">openssl</span>
+              ciphername </em><em class="Command">-a -salt&nbsp;</em><em class="Command">
+              <span style="font-weight: bold;">-in</span> filename [<span style="font-weight: bold;">-out</span>
+              filename] <br>
+              <br>
+            </em>Descriptografia com password:<br>
+            <br>
+            <em class="Command"><span style="font-weight: bold;">openssl</span>
+              ciphername </em><em class="Command">-a&nbsp;</em><em class="Command"><span
+                style="font-weight: bold;"> -d</span> <span style="font-weight: bold;"></span></em><em
+              class="Command"></em><em class="Command"> -salt<span style="font-weight: bold;">
+              </span></em><em class="Command"><span style="font-weight: bold;">-in</span>
+              filename [<span style="font-weight: bold;">-out</span> filename] <br>
+              <br>
+            </em> <b>-salt</b> é um argumento para melhorar o processo de
+            geração de chave<br>
+            <br>
+          </td>
+        </tr>
+        <tr class="TRow">
+          <td colspan="2" rowspan="1"><b>Exemplos:</b><br>
+          </td>
+        </tr>
+        <tr>
+          <td class="H1Cel">RC4:</td>
+          <td class="CCel" valign="top"><br>
+            O algoritmo rc4-40 é uma versão do rc4 com chave de 40 bits criado
+            devido a restrições de exportação.<br>
+            <br>
+            <em class="Command"><span style="color: #3333ff;">openssl rc4-40 -a
+                -in <span style="font-weight: bold;">teste.txt</span> -out <span
+                  style="font-weight: bold;">teste.rc4</span> -K 0102030405<br>
+                <br>
+                openssl rc4-40 -d -a -in <span style="font-weight: bold;">teste.rc4</span>
+                -K 0102030405</span><br>
+              <br>
+            </em><em class="Command"></em></td>
+        </tr>
+        <tr>
+          <td class="H1Cel">DES:<br>
+          </td>
+          <td class="CCel"><br>
+            O DES (Data Encryption Standard) utiliza chaves de 56 bits e 8 bits
+            de paridade.<br>
+            Os bits de paridade não são usados na prática, mas precisam ser
+            fornecidos.<br>
+            <br>
+            <span style="color: #3333ff;"><em class="Command">openssl des-cbc -a
+                -in <span style="font-weight: bold;">teste.txt</span> -out <span
+                  style="font-weight: bold;">teste.des</span> -K
+                1234567812345678 -iv 01<br>
+                <br>
+                openssl des-cbc -d -a -in <span style="font-weight: bold;">teste.des</span>&nbsp;
+                -K </em><em class="Command">1234567812345678</em></span><em class="Command"><span
+                style="color: #3333ff;"> -iv 01</span><br>
+              <br>
+            </em>Veja a explicação do parâmetro -iv <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">nesse
+              link</a><br>
+            <br>
+          </td>
+        </tr>
+        <tr>
+          <td class="H1Cel">3DES:</td>
+          <td class="CCel"><br>
+            3DES utiliza 3 chaves de 56 bits <br>
+            <br>
+            <span style="color: #3333ff;"><em class="Command">openssl des3 -a
+                -in <span style="font-weight: bold;">teste.txt</span> -out <span
+                  style="font-weight: bold;">teste.des3<br>
+                  <br>
+                </span> openssl des3 -a -d -in <span style="font-weight: bold;">teste.des3</span>
+              </em><br>
+            </span><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <table class="CTable" style="width: 90%;" cellspacing="0" cellpadding="0" border="1">
+      <tbody>
+        <tr>
+          <td><b>EXERCICIO 1</b></td>
+        </tr>
+        <tr>
+          <td class="CCel" width="985" valign="top"><span style="color: rgb(0, 153, 0);">#!/bin/bash
+              -x<br>
+              <br>
+              # a) ALGORITMO RC4<br>
+            </span><span style="color: rgb(0, 153, 0);"><span style="color: black;">echo
+                "MENSAGEM SECRETA" &gt; teste.txt<br>
+              </span></span>openssl rc4-40 -a -in teste.txt -out teste.rc4 -K
+            0102030405 <br style="color: rgb(0, 153, 0);">
+            openssl rc4-40 -d -a -in teste.rc4 -K 0102030405 <br>
+            openssl rc4-40 -d -a -in teste.rc4 -K 0102030406<br>
+            <span style="color: rgb(0, 153, 0);"><span style="color: black;"><br>
+              </span></span><span style="color: rgb(0, 153, 0);"># b) ALGORITMO
+              DES<br>
+            </span><span style="color: rgb(0, 153, 0);"><span style="color: black;">echo
+                "SEGREDOSSEGREDOSSEMFIM" &gt; teste.txt<br>
+              </span></span>openssl des-ecb -in teste.txt -out teste.des -K
+            1234567812345678 <br>
+            hexdump -x teste.des<br>
+            openssl des-cbc -in teste.txt -out teste.des&nbsp; -K
+            1234567812345678 -iv 01<br>
+            hexdump -x teste.des<br>
+            <br>
+            <span style="color: rgb(0, 153, 0);"># c) ALGORITMO 3DES<br>
+            </span><span style="color: rgb(0, 153, 0);"><span style="color: black;">echo
+                "CHAVE MUITO LONGA" &gt; teste.txt<br>
+              </span></span>&nbsp;openssl des3 -p -a -in teste.txt -out
+            teste.des3 <br>
+            openssl des3 -p -a -d -in teste.des3 <br>
+            <br>
+            echo "FIM DO SCRIPT".<br>
+--------------------------------------------------------------------------------------------<br>
+            Para executar o script:<br>
+            chmod +x crypto.sh<br style="color: rgb(0, 153, 0);">
+            ./crypto.sh<br>
+            <br>
+            <span style="font-weight: bold; text-decoration: underline;">Relatório
+              - Parte 1: </span><br>
+            <br>
+            1) O formato de arquivo gerado no passo a) quando a chave utilizada
+            para descriptografar o arquivo está errada é do tipo TEXTO (BASE64)?
+            Se não, explique a razão.<br>
+            <br>
+            2) Qual a diferença dos algoritmos des-ecb e des-cbc usados no passo
+            b) ? <br>
+            <br>
+            3) Qual o tamanho de chave usado pelo algoritmo 3DES? Como essa
+            chave foi gerada?<br>
+            <br>
+            <br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <table class="CTable" style="width: 90%;" cellspacing="0" cellpadding="0" border="1">
+      <tbody>
+        <tr class="TRow">
+          <td colspan="2" rowspan="1"><b>Criptografia Assimétrica </b><br>
+          </td>
+        </tr>
+        <tr>
+          <td class="H1Cel" style="background-color: white;">Sintaxe:&nbsp;</td>
+          <td class="CCel" style="vertical-align: top; background-color: white;"
+            width="985" valign="top"><br>
+            gera a chave:<br>
+            <br>
+            <em class="Command"><b>openssl</b> <b>genrsa</b> [<b>-out filename]</b>
+              [-passout arg] [-des] [-des3] [-idea] [-f4] [-3] [-rand file(s)]
+              [-engine id] [<b>numbits</b>] <br>
+              <br>
+            </em> processa a chave gerada:<br>
+            <br>
+            <em class="Command"><b>openssl</b> <b>rsa</b> [-inform PEM|NET|DER]
+              [-outform PEM|NET|DER] [<b>-in filename</b>] [-passin arg] [<b>-out
+                filename</b>] [-passout arg] [-sgckey] [-des] [-des3] [-idea]
+              [-text] [-noout] [-modulus] [-check] [-pubin] [<b>-pubout</b>]
+              [-engine id]<br>
+              <br>
+            </em>utiliza a chave gerada:<br>
+            <br>
+            <em class="Command"><b>openssl rsautl</b> [-in file] [-out file]
+              [-inkey file] [-pubin] [-certin] [-sign] [-verify] [-encrypt]
+              [-decrypt] [-pkcs] [-ssl] [-raw] [-hexdump] [-asn1parse]<br>
+              &nbsp;</em> </td>
+        </tr>
+        <tr class="TRow">
+          <td colspan="2" rowspan="1"> Exemplos:<br>
+          </td>
+        </tr>
+        <tr>
+          <td class="H1Cel">Geração:</td>
+          <td class="CCel" style="vertical-align: top; background-color: white;"
+            width="985" valign="top"><br>
+            Gera um par de chaves RSA de 512 bits (default)<br>
+            <span style="color: rgb(0, 0, 153);">openssl genrsa -out
+              key.pem&nbsp;</span>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>
+            <br>
+            Gera um par de chaves RSA de 1024 bits criptografada com DES<br>
+            <span style="color: rgb(0, 0, 153);">openssl genrsa -des -out
+              key.pem 1024</span><em class="Command"><br>
+              <br>
+            </em></td>
+        </tr>
+        <tr>
+          <td class="H1Cel">Informações:</td>
+          <td class="CCel" width="985" valign="top"><br>
+            Mosta as informações sobre a chave gerada&nbsp;<br>
+            <span style="color: rgb(0, 0, 153);">openssl rsa -in key.pem -text</span><br>
+            <br>
+            Extrai a chave pública<br>
+            <span style="color: rgb(0, 0, 153);">openssl rsa -in key.pem -pubout
+              -out pubkey.pem</span><br style="color: rgb(0, 0, 153);">
+            <br>
+            Remove o password da chave privada, caso tenha sido utilizado<br>
+            <span style="color: rgb(0, 0, 153);">openssl rsa -in key.pem -out
+              keyout.pem </span><br style="color: rgb(0, 0, 153);">
+            <br>
+          </td>
+        </tr>
+        <tr>
+          <td class="H1Cel">Criptografia e Descriptografia:</td>
+          <td class="CCel" style="vertical-align: top; background-color: white; width: 80%;"
+            width="985" valign="top"><br>
+            Criptografa com a Chave Pública e Descriptografa com a Privada<br>
+            <br>
+            <span style="color: #3333ff;" class="Command"><span style="color: #000099;">openssl
+                rsautl -in teste.txt -out teste.rsa -encrypt -pubin -inkey
+                pubkey.pem</span><br>
+            </span><em class="Command" style="color: #3333ff;"><br>
+            </em><span class="Command" style="color: #000099;">openssl rsautl
+              -in teste.rsa -out teste.rec -decrypt -inkey key.pem<br>
+            </span><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <table class="CTable" style="width: 90%;" cellspacing="0" cellpadding="0" border="1">
+      <tbody>
+        <tr>
+          <td><b>EXERCICIO 2: ATIVIDADE FORMATIVA<br>
+            </b></td>
+        </tr>
+        <tr>
+          <td><br>
+            <b><span style="color: #990000;">PREPARAÇÃO:</span></b><br>
+            <br>
+            Crie o arquivo teste.txt usando o editor de texto com uma frase de
+            sua escolha.<br>
+            <br>
+            Crie uma pasta chamada exercicio2 para executar este script:<br>
+            <br>
+            mkdir exercicio2<br>
+            <br>
+            Em seguida, crie um script (crypto2.sh) com&nbsp; todos os comandos
+            do exemplo acima para este arquivo.<br>
+            <br>
+            Certifique-se que salvou o script na pasta correta.<br>
+            <br>
+            cd exercicio2<br>
+            pwd<br>
+            chmod +x crypto2.sh<br>
+            ./crypto2<br>
+            <br>
+          </td>
+        </tr>
+        <tr>
+          <td class="CCel" width="985" valign="top"><br>
+            <span style="color: rgb(0, 153, 0);"><em class="Command"><span style="color: rgb(0, 153, 0);"><span
+                    style="color: black;">#!/bin/bash -x<br>
+                    <br>
+                    <span style="color: #009900;"># A opcao normal true simula a
+                      comunicação entre Bob e alice<br>
+                      # A opcao normal false mostra que BadBoy não consegue
+                      descriptografar os dados transmitidos</span><br>
+                    Normal=true<br>
+                    <br>
+                    if $Normal; then<br>
+                    <br>
+                    <span style="color: #006600;">#1) Alice gera a chave privada
+                      (e pública)</span><br>
+                    openssl genrsa -out alice_key.pem 1024<br>
+                    <br>
+                    <span style="color: #006600;">#2) Alice extrai a chave
+                      pública</span><br>
+                    openssl rsa -in alice_key.pem -pubout -out alice_pubkey.pem<br>
+                    <br>
+                    <span style="color: #006600;">#3) Bob usa a chave pública de
+                      Alice para criar uma mensagem cifrada</span><br>
+                    openssl rsautl -in teste.txt -out teste.rsa -encrypt -pubin
+                    -inkey alice_pubkey.p&gt;<br>
+                    <br>
+                    <span style="color: #006600;">#4) Alice usa sua chave
+                      privada para recuperar a mensagem de Bob</span><br>
+                    openssl rsautl -in teste.rsa -decrypt -inkey alice_key.pem<br>
+                    <br>
+                    else<br>
+                    <br>
+                    <span style="color: #006600;">#5) BadBoy interceptou a
+                      mensagem de Bob e quer decifrá-la</span><br>
+                    <br>
+                    <span style="color: #006600;"># Tentativa 1: usando a chave
+                      pública da Alice</span><br>
+                    openssl rsautl -in teste.rsa -decrypt -pubin -inkey
+                    alice_pubkey.pem<br>
+                    <br>
+                    <span style="color: #006600;"># Tentativa 2: criando uma
+                      nova chave privada</span><br>
+                    openssl genrsa -out badboy_key.pem 1024<br>
+                    openssl rsautl -in teste.rsa -decrypt -inkey badboy_key.pem<br>
+                    <br>
+                    fi</span><br>
+                </span></em></span><br>
+            <em class="Command"></em> </td>
+        </tr>
+        <tr>
+          <td><span style="font-weight: bold; text-decoration: underline;">Relatório
+-
+              Parte 2:</span><br>
+            <br>
+            1) Inclua no seu relatório o conteúdo das chaves privada e pública
+            de Alice.<br>
+            <br>
+            2) Responda a pergunta: Por que BadBoy não conseguiu decifrar a
+            mensagem? Qual foi o erro em cada tentativa?<br>
+            <br>
+            3) Nesse cenário é possível para Alice transmitir uma mensagem
+            segura para Bob?<br>
+            <br>
+            4) Como Alice transmitiu sua chave pública para o Bob?</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    &nbsp;<br>
+    <table class="CTable" style="width: 90%;" cellspacing="0" cellpadding="0" border="1">
+      <tbody>
+        <tr>
+          <td><b><br>
+              ATIVIDADE SOMATIVA PRÁTICA: Criptografia Simétrica e Assimétrica <br>
+              <br>
+              - ESTA ATIVIDADE CORRESPONDE A <span style="color: red;">SOMATIVA
+                1</span> DA DISCIPLINA DE CRIPTOGRAFIA APLICADA<br>
+              <br>
+            </b></td>
+        </tr>
+        <tr>
+          <td><br>
+            <b><span style="color: #990000;">OBJETIVO:</span></b><br>
+            <br>
+            O objetivo desta atividade é mostrar como os algoritmos de
+            criptografia simétrico e assimétrico são usados na prática.<br>
+            <br>
+            O objetivo da criptografia assimétrica NÃO É CRIPTOGRAFAR DADOS, mas
+            transmitir um SEGREDO pela internet.<br>
+            <br>
+            Esse segredo pode ser a própria CHAVE SECRETA, ou um segredo usado
+            em uma função de derivação de chaves a partir de senhas como o
+            PBKDF2.<br>
+            <br>
+            Veja: <a href="https://en.wikipedia.org/wiki/PBKDF2">PBKDF2 -
+              Wikipedia</a><br>
+            <br>
+            A criptografia de DADOS é feita com a criptografia simétrica usando
+            essa CHAVE SECRETA.<br>
+            <br>
+          </td>
+        </tr>
+        <tr>
+          <td><br>
+            <span style="color: #990000;"><b>PREPARAÇÃO:</b> </span><br>
+            <br>
+            Na p&#341;atica, Alice, Bob e BadBoy estão em computadores diferentes.<br>
+            <br>
+            Vamos simular esse cenário criando três pastas. Copie e aplique os
+            comandos a seguir.<br>
+            <br>
+            <b>mkdir somativa<br>
+              cd somativa<br>
+              mkdir alice<br>
+              mkdir bob<br>
+              mkdir badboy<br>
+              pwd<br>
+            </b><br>
+            Os scripts listados abaixo estão incompletos.<br>
+            <br>
+            Cada script deverá ser colocado na pasta correspondente:<br>
+            <br>
+            script <b>alice.sh</b> na pasta <b>alice</b><br>
+            script <b>bob.sh</b> na pasta <b>bob</b><br>
+            script <b>badboy.sh</b> na pasta <b>badboy<br>
+              <br>
+            </b>Para navegar nas pastas:<b><br>
+              <br>
+            </b>Ver a pasta corrente: <b>pwd<br>
+              <br>
+            </b>Atenção, certifique-se que está na pasta <b>somativa</b>.<br>
+            <br>
+            Para entrar em uma pasta digite: <b>cd pasta<br>
+            </b>Para ir a pasta anterior digite: <b>cd ..<br>
+              <br>
+            </b> Você pode mover-se diretamente entre pastas. Por exemplo, para
+            ir da pasta da <b>alice </b>para a pasta do bob, <b>digite</b>:<br>
+            <br>
+            cd ../bob<b><br>
+              <br>
+            </b>Para executar os script (você tem que estar na pasta correta)<b>:<br>
+              <br>
+            </b>sem debug: <b>bash script.sh <br>
+            </b>com debug: <b>bash -x script.sh<br>
+            </b><br>
+            Observe que a alice tem duas operações distintas:<br>
+            <br>
+            1 = Gerar as Chaves<br>
+            2 = Descriptografar o <b>SEGREDO </b>enviado por bob<br>
+            <br>
+            para executar a opção 1, digite: <b>bash alice.sh 1</b><br>
+            para executar a opção 2, digite: <b>bash alice.sh 2<br>
+              <br>
+            </b><br>
+          </td>
+        </tr>
+        <tr>
+          <td><br>
+            <b><span style="color: #990000;"># SCRIPT DA ALICE:</span></b><br>
+            <br>
+            #!/bin/bash -x<br>
+            <br>
+            <br>
+            if [ $1 -eq 1 ]; then<br>
+            <br>
+            echo "Alice gera a chave privada e extrai a chave pública"<br>
+            <br>
+            echo "Alive transmite a chave pública para Bob"<br>
+            <br>
+            # cp alice_pubkey.pem ../bob<br>
+            <br>
+            fi<br>
+            <br>
+            <br>
+            if [ $1 -eq 2 ]; then<br>
+            <br>
+            echo "Alice descriptografa a chave secreta de Bob"<br>
+            <br>
+            echo "Alice descriptografa a mensagem enviada por Bob"<br>
+            <br>
+            # openssl aes128 -d -a -in mensagem_bob.aes -kfile segredo_bob.txt
+            -pbkdf2<br>
+            <br>
+            fi<span style="color: rgb(0, 153, 0);"><em class="Command"><span style="color: rgb(0, 153, 0);"><span
+                    style="color: black;"><span style="color: #006600;"><span style="color: rgb(0, 153, 0);"><em
+                          class="Command"><span style="color: rgb(0, 153, 0);"><span
+                              style="color: black;"><span style="color: #006600;"><span
+                                  style="color: black;"><br>
+                                  <br>
+                                </span></span></span></span></em></span></span></span></span></em></span></td>
+        </tr>
+        <tr>
+          <td class="CCel" width="985" valign="top"><span style="color: rgb(0, 153, 0);"><em
+                class="Command"><span style="color: rgb(0, 153, 0);"><span style="color: black;"><span
+                      style="color: #006600;"></span><br>
+                  </span></span></em></span><br>
+            <b><span style="color: #990000;"># SCRIPT D0 BOB:</span></b><br>
+            <br>
+            #!/bin/bash -x<br>
+            <br>
+            echo -n "Bob escolhe um segredo: "<br>
+            <br>
+            read segredo<br>
+            <br>
+            echo $segredo &gt; segredo_bob.txt<br>
+            <br>
+            echo -n "Bob gera uma mensagem: "<br>
+            <br>
+            read mensagem<br>
+            <br>
+            echo $mensagem &gt; mensagem_bob.txt<br>
+            <br>
+            echo "Bob criptografa o segredo com a chave pública da alice"<br>
+            <br>
+            echo "Bob criptografa a mensagem com a chave secreta gerada com o
+            segredo"<br>
+            <br>
+            openssl aes128 -a -in mensagem_bob.txt -out mensagem_bob.aes -kfile
+            segredo_bob.txt -pbkdf2<br>
+            <br>
+            echo "Bob envia a mensagem criptografada e o segredo criptografado
+            para Alice"<br>
+            <br>
+            <em class="Command"></em> </td>
+        </tr>
+        <tr>
+          <td><br>
+            <b><span style="color: #990000;"># SCRIPT D0 BADBOY:<br>
+                <br>
+              </span></b># echo "BadBoy rouba as mensagens em trânsito"<br>
+            <br>
+            # echo "BadBoy tenta descobrir o segredo de Bob"<br>
+            <br>
+            # echo "BadBoy tenta descriptografar a mensagem enviada por Bob"<br>
+            <br>
+            <br>
+          </td>
+        </tr>
+        <tr>
+          <td><br>
+            <b>ENTREGA DA ATIVIDADE:</b><br>
+            <br>
+            Os três scripts completos com os comandos que estão faltando.
+            Entregue os scripts usando o print da execução:<br>
+            <br>
+            <b>bash -x alice.sh 1 &gt; alice_parte1.txt<br>
+              bash -x bob.sh &gt; bob.txt<br>
+              bash -x alice.sh 2 &gt; alice_parte2.txt</b><br>
+            <br>
+            O resultado das tentativas do BadBoy e a explicação para o resultado
+            na forma de comentários no próprio script<br>
+            <br>
+            Coloque suas respostas em um arquivo chamado <b>badboy.txt</b><br>
+            <br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <br>
+    <br>
+    &nbsp;<br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  </body>
+</html>

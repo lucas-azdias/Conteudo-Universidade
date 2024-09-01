@@ -1,0 +1,120 @@
+body {
+      background-color: #EAEAEA;
+}
+
+.team-view {
+      padding: 20px 40px 20px 40px;
+
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+}
+
+.card {
+      width: 300px;
+      height: 460px;
+
+      background-color: #FFFFFF;
+      color: black;
+
+      font-family: "Roboto", sans-serif;
+
+      margin: 0px 24px 0px 24px;
+      border-radius: 30px;
+
+      box-shadow: 5px 10px 10px 0px #AAAAAA;
+}
+
+.card:hover {
+      transition: 0.3s;
+      scale: 1.08;
+}
+
+.card:not(:hover) {
+      transition: 0.3s;
+}
+
+.card-img {
+      width: 100%;
+      height: 50%;
+
+      background-color: blue;
+
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+}
+
+.card-img img {
+      width: 160px;
+      height: 160px;
+
+      object-fit: cover;
+
+      border: 5px solid white;
+      border-radius: 50%;
+}
+
+.card-view {
+      width: 100%;
+      height: 50%;
+
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+}
+
+.card-view-text {
+      width: 100%;
+      height: 60%;
+      
+      padding-block-start: 0.83em;
+
+      text-align: center;
+}
+
+.card-view-text h2 {
+      margin-block-start: 0em;
+      margin-block-end: 0em;
+
+      padding: 0px 20px 0px 20px;
+}
+
+.card-view-text span {
+      padding: 0px 20px 0px 20px;
+      
+      padding-block-start: 0.4em;
+
+      font-family: "Roboto", sans-serif;
+      font-size: 12pt;
+
+      display: block;
+}
+
+.card-view-button {
+      width: 100%;
+
+      display: flex;
+      justify-content: center;
+}
+
+.card-view-button button {
+      padding: 10px 20px 10px 20px;
+
+      background-color: blue;
+      color: white;
+
+      font-family: "Roboto", sans-serif;
+      font-size: 12pt;
+
+      cursor: pointer;
+
+      border: none;
+      border-radius: 5px;
+}
+
+.card-view-button button:hover {
+      background-color: darkblue;
+}

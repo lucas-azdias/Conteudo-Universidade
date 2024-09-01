@@ -1,0 +1,35 @@
+1) Calcule o valor futuro:
+
+a) Valor Presente = 1000; taxa de desconto = 12% ao ano ; vencimento = 10 anos 
+
+b) Valor Presente = 100000; taxa de desconto = 7% ao ano ; vencimento = 35 anos 
+
+c) Valor Presente = 100000 ; taxa de desconto = 9% ao ano ; vencimento =  720 meses 
+
+2) Calcule o valor presente:
+
+a) Valor futuro = 7500 ; taxa de desconto = 15% ao ano ; vencimento = 5 anos 
+
+b) Valor futuro = 13000; taxa de desconto = 3% ao ano ; vencimento = 10 anos 
+
+c) Valor futuro = 100,000,000 ; taxa de desconto = 20% ao ano ; vencimento =  35 anos
+
+3)  Calcule o preço unitario (PU) do título de de cupom-zero (apenas valor de face):
+
+a) Principal (valor de face) = 25000 ; taxa de desconto = 15% ao ano ; dias uteis = 500  
+
+b) Principal (valor de face) = 130000 ; taxa de desconto = 3% ao ano ; dias uteis = 700 
+
+c) Principal (valor de face) = 1,000,000 ; taxa de desconto = 11% ao ano ; dias uteis =  504 
+
+4) Calcule a mudança no preço do título com [Principal (valor de face) = 1,000,000 ; taxa de desconto = 11% ao ano ; dias uteis =  504] 
+
+quando a taxa de desconto muda de 11% ao ano para 7%,9%, 13%, 15% e 17%.
+
+5) Escreva uma função (argumentos como entrada e resultado como saída)  para:
+
+a) o valor futuro
+
+b) o valor presente
+
+c) preço unitario (PU) de um titulo de zero cupom.

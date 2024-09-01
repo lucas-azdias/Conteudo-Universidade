@@ -1,0 +1,33 @@
+1) Se a taxa de juros é de 15%, qual é o valor presente de um título que lhe paga $ 1.100 no próximo ano, $ 1.250 no ano seguinte e $ 1.347 no ano seguinte?
+
+2)  Calcule o valor presente de um título de cupom-zero de $ 1.300 com sete anos até o vencimento se o rendimento até o vencimento for de 8%.
+
+3) Uma loteria afirma que seu grande prêmio é de US$ 15 milhões, pagáveis ​​em cinco anos a US$ 3.000.000 por ano. Se o primeiro pagamento for feito imediatamente, qual é o real valor desse prêmio? Use uma taxa de juros de 7%
+
+4)  Qual é o rendimento até o vencimento de um título de valor de face de $ 10.000, com vencimento em um ano, que é vendido por $ 9.523,81?
+
+5)  Considere um título com cupom anual de 6% e valor de face de $ 1.000. Preencha a tabela a seguir. Que relações você observa entre anos até o vencimento, rendimento até o vencimento e o preço atual?
+
+	Anos até o Vencimento 	Rendimento até o Vencimento 	Preço Corrente
+		  2			    4%			______________
+		  2			    6%			______________
+		  3			    6%			______________
+		  5			    4%			______________
+		  5			    8%			______________
+6 )
+
+a ) Calcule a taxa de juros real esperada para 2022, 2023 e 2024 usando o pesquisa de expectativas de mercado do Banco Central do Brasil
+
+b)  Discuta os perigos e limitações de sua previsão. Quais são os cuidados que você deve ter ao fazer previsões em variáveis econômicas?
+
+7) De acordo com a equação de Fisher (veja os slides da palestra sobre riscos de títulos), discuta as diferenças entre países nas taxas de juros nominais. Em particular, discuta por que, em geral, os países em desenvolvimento têm taxas de juros mais altas em relação aos países desenvolvidos.
+
+8) Explique o que aconteceu com o preço e o rendimento dos títulos do Tesouro dos EUA e do Brasil após o default russo de 1998. Use este exemplo para discutir os riscos de  se investir  em títulos.
+
+09) Explique o conceito de marcação a mercado e sua importância na renda fixa.
+
+10) 
+
+a) Qual é a diferença conceitual entre rendimento até o vencimento e o retorno do período de retenção num título de renda fixa?
+
+b) Discorra sobre a diferença entre as linhas de 'preço curva' e 'preço mercado' no gráfico abaixo. Explique como essa relação abre espaço para  ganho ou perda de capital.

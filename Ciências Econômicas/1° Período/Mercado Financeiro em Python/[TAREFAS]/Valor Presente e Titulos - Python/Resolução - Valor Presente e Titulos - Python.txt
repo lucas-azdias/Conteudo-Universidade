@@ -1,0 +1,30 @@
+Lucas Azevedo Dias
+
+Respostas:
+
+	1.a) Valor futuro: 3105.85
+	1.b) Valor futuro: 1067658.15
+	1.c) Valor futuro: 17603129.20
+
+	2.a) Valor presente: 3728.83
+	2.b) Valor presente: 9673.22
+	2.c) Valor presente: 169299.78
+
+	3.a) Preço unitário: 18945.57
+	3.b) Preço unitário: 119752.45
+	3.c) Preço unitário: 811622.43
+
+	4. |__i__|__Preço_unitário__|
+	   |0.07_|_________873438.73|
+	   |0.09_|_________841679.99|
+	   |0.11_|_________811622.43|
+	   |0.13_|_________783146.68|
+	   |0.15_|_________756143.67|
+	   |0.17_|_________730513.55|
+
+	5.a) def calc_vf(vp, i, t):
+           	return vp * (1 + i) ** t
+	5.b) def calc_vp(vf, i, t):
+            return vf / (1 + i) ** t
+	5.c) def calc_pu(vf, i, t):
+            return calc_vp(vf, i, t)

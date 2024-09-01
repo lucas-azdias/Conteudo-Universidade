@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Codificação de Caracteres</title>
+  </head>
+  <body>
+    <h1>CAESAR CIPHER EM BINÁRIO!!!</h1>
+    <br>
+    <h2>A) REVISÃO DE CONCEITOS</h2>
+    <p>Um mesmo número pode ser representado em BASES diferentes, mas
+      fisicamente, os dispositivos computacionais manipulam números APENAS em
+      binário.</p>
+    <p>A representação em uma&nbsp; BASE é apenas uma forma de VISUALIZAR O
+      NÚMERO, ela não muda seu valor.</p>
+    <p>BASE é o número de digitos usados para representar o número.</p>
+    <p>Os dígitos vão de 0 até (BASE - 1). Por exemplo, a base decimal usa
+      digitos de 0 até 9</p>
+    <p>A base 16 usa dígitos de 0 até 15. Os dígitos 10 em diante são
+      substituídos pelas letras A até F.</p>
+    <h2></h2>
+    <div style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div
+style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div
+style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div
+style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><br><div
+style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div><span
+style="color: #6a9955;">#&nbsp;representa&nbsp;o&nbsp;número&nbsp;decimal&nbsp;em&nbsp;binário&nbsp;(base&nbsp;2 - digitos 0 até 1)</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #ce9178;">"Numero&nbsp;192&nbsp;(decimal&nbsp;=&gt;&nbsp;binario)&nbsp;=&nbsp;"</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #dcdcaa;">format</span><span
+style="color: #d4d4d4;">(</span><span style="color: #b5cea8;">192</span><span style="color: #d4d4d4;">,</span><span
+style="color: #ce9178;">'8b'</span><span style="color: #d4d4d4;">))&nbsp;</span></div><br><div><span
+style="color: #6a9955;">#&nbsp;representa&nbsp;o&nbsp;número&nbsp;decimal&nbsp;em&nbsp;hexadecimal&nbsp;(base&nbsp;16 - digitos de 0 até 15)</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #ce9178;">"Numero&nbsp;192&nbsp;(decimal&nbsp;=&gt;&nbsp;hexa)&nbsp;=&nbsp;"</span><span
+style="color: #d4d4d4;">,</span><span style="color: #dcdcaa;">format</span><span
+style="color: #d4d4d4;">(</span><span style="color: #b5cea8;">192</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #ce9178;">'1x'</span><span style="color: #d4d4d4;">))</span></div><br><div><span
+style="color: #6a9955;">#&nbsp;um&nbsp;digito&nbsp;em&nbsp;hexa&nbsp;corresponde&nbsp;a&nbsp;4&nbsp;bits</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #ce9178;">"Digito&nbsp;c&nbsp;(hexa&nbsp;=&gt;&nbsp;binario)&nbsp;=&nbsp;"</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #dcdcaa;">format</span><span
+style="color: #d4d4d4;">(</span><span style="color: #569cd6;">0x</span><span style="color: #b5cea8;">c</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #ce9178;">'4b'</span><span
+style="color: #d4d4d4;">))&nbsp;</span></div><br><div><span style="color: #6a9955;">#&nbsp;um&nbsp;digito&nbsp;em&nbsp;hexa&nbsp;corresponde&nbsp;a&nbsp;4&nbsp;bits</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #ce9178;">"Digito&nbsp;f&nbsp;(hexa&nbsp;=&gt;&nbsp;binario)&nbsp;=&nbsp;"</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #dcdcaa;">format</span><span
+style="color: #d4d4d4;">(</span><span style="color: #569cd6;">0x</span><span style="color: #b5cea8;">f</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #ce9178;">'4b'</span><span
+style="color: #d4d4d4;">)) <br></span></div></div><div><span style="color: #6a9955;"><br></span></div></div></div></div></div>
+    <h2></h2>
+    <br>
+    Obs. Na babilônia, a representação de números usava a base 60 (<span style="color: rgb(32, 33, 36); font-family: arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">sexagesimal)</span>!!!<br>
+    <h2>B) O TAMANHO DA PALAVRA</h2>
+    <p>Computadores não fazem apenas operações em um bit de cada vez.</p>
+    <p>Bits são agrupados em palavras de tamanho variável, para serem
+      manipulados em uma única operação (instrução do microprocessador).</p>
+    <p>A quantidade de bits usado em uma palavra depende do tamanho do número
+      que se deseja representar.</p>
+    <p><br>
+    </p>
+    <div style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div><span
+style="color: #6a9955;">#&nbsp;representa&nbsp;o&nbsp;número&nbsp;decimal&nbsp;192&nbsp;com&nbsp;um&nbsp;byte&nbsp;(palavra&nbsp;de&nbsp;8&nbsp;bits)</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #ce9178;">"Numero&nbsp;192&nbsp;(8&nbsp;bits)&nbsp;=&nbsp;"</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #dcdcaa;">format</span><span
+style="color: #d4d4d4;">(</span><span style="color: #b5cea8;">192</span><span style="color: #d4d4d4;">,</span><span
+style="color: #ce9178;">'b'</span><span style="color: #d4d4d4;">).</span><span style="color: #dcdcaa;">zfill</span><span
+style="color: #d4d4d4;">(</span><span style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">))&nbsp;</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #ce9178;">"De&nbsp;:&nbsp;"</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #569cd6;">0b</span><span style="color: #b5cea8;">00000000</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #ce9178;">"&nbsp;até&nbsp;"</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #569cd6;">0b</span><span
+style="color: #b5cea8;">11111111</span><span style="color: #d4d4d4;">)</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #ce9178;">"De&nbsp;:&nbsp;"</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #569cd6;">0x</span><span style="color: #b5cea8;">00</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #ce9178;">"&nbsp;até&nbsp;"</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #569cd6;">0x</span><span style="color: #b5cea8;">ff</span><span style="color: #d4d4d4;">)</span></div><br><div><span
+style="color: #6a9955;">#&nbsp;representa&nbsp;o&nbsp;número&nbsp;decimal&nbsp;192&nbsp;com&nbsp;um&nbsp;2&nbsp;bytes&nbsp;(palavra&nbsp;de&nbsp;16&nbsp;bits)</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #ce9178;">"Numero&nbsp;192&nbsp;(16&nbsp;bits)&nbsp;=&nbsp;"</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #dcdcaa;">format</span><span
+style="color: #d4d4d4;">(</span><span style="color: #b5cea8;">192</span><span style="color: #d4d4d4;">,</span><span
+style="color: #ce9178;">'b'</span><span style="color: #d4d4d4;">).</span><span style="color: #dcdcaa;">zfill</span><span
+style="color: #d4d4d4;">(</span><span style="color: #b5cea8;">16</span><span style="color: #d4d4d4;">))&nbsp;</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #ce9178;">"De&nbsp;:&nbsp;"</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #569cd6;">0b</span><span style="color: #b5cea8;">0000000000000000</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #ce9178;">"&nbsp;até&nbsp;"</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #569cd6;">0b</span><span
+style="color: #b5cea8;">1111111111111111</span><span style="color: #d4d4d4;">)</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #ce9178;">"De&nbsp;:&nbsp;"</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #569cd6;">0x</span><span style="color: #b5cea8;">0000</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #ce9178;">"&nbsp;até&nbsp;"</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #569cd6;">0x</span><span
+style="color: #b5cea8;">ffff</span><span style="color: #d4d4d4;">)</span></div><br><div><span
+style="color: #6a9955;">#&nbsp;o&nbsp;maior&nbsp;número&nbsp;que&nbsp;pode&nbsp;ser&nbsp;representado&nbsp;é&nbsp;2&nbsp;elevado&nbsp;(TAMANHO&nbsp;DA&nbsp;PALAVRA&nbsp;-&nbsp;1&nbsp;)</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #ce9178;">"8&nbsp;bits:&nbsp;"</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #b5cea8;">2</span><span style="color: #d4d4d4;">**</span><span style="color: #b5cea8;">8</span><span
+style="color: #d4d4d4;">)</span></div><div><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #ce9178;">"16&nbsp;bits:&nbsp;"</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #b5cea8;">2</span><span
+style="color: #d4d4d4;">**</span><span style="color: #b5cea8;">16</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #ce9178;">'&nbsp;ou&nbsp;'</span><span style="color: #d4d4d4;">,&nbsp;(</span><span
+style="color: #b5cea8;">2</span><span style="color: #d4d4d4;">**</span><span style="color: #b5cea8;">8</span><span
+style="color: #d4d4d4;">)*(</span><span style="color: #b5cea8;">2</span><span style="color: #d4d4d4;">**</span><span
+style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">),&nbsp;</span><span
+style="color: #ce9178;">'&nbsp;ou&nbsp;'</span><span style="color: #d4d4d4;">,&nbsp;(</span><span
+style="color: #b5cea8;">2</span><span style="color: #d4d4d4;">&nbsp;**&nbsp;</span><span
+style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">)**</span><span style="color: #b5cea8;">2</span><span
+style="color: #d4d4d4;">)</span></div><div><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #ce9178;">"32&nbsp;bits:&nbsp;"</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #b5cea8;">2</span><span
+style="color: #d4d4d4;">**</span><span style="color: #b5cea8;">32</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #ce9178;">'&nbsp;ou&nbsp;'</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #ce9178;">'&nbsp;ou&nbsp;'</span><span style="color: #d4d4d4;">,&nbsp;(</span><span
+style="color: #b5cea8;">2</span><span style="color: #d4d4d4;">&nbsp;**&nbsp;</span><span
+style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">)**</span><span style="color: #b5cea8;">4</span><span
+style="color: #d4d4d4;">)</span></div><div><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #ce9178;">"64&nbsp;bits:&nbsp;"</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #b5cea8;">2</span><span
+style="color: #d4d4d4;">**</span><span style="color: #b5cea8;">64</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #ce9178;">'&nbsp;ou&nbsp;'</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #ce9178;">'&nbsp;ou&nbsp;'</span><span style="color: #d4d4d4;">,&nbsp;(</span><span
+style="color: #b5cea8;">2</span><span style="color: #d4d4d4;">&nbsp;**&nbsp;</span><span
+style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">)**</span><span style="color: #b5cea8;">8</span><span
+style="color: #d4d4d4;">)</span></div><br><div><span style="color: #6a9955;">#&nbsp;caso&nbsp;um&nbsp;computador&nbsp;teste&nbsp;1000&nbsp;chaves&nbsp;por&nbsp;segundo</span></div><div><span
+style="color: #6a9955;">#&nbsp;quanto&nbsp;tempo&nbsp;levará&nbsp;para&nbsp;encontrar&nbsp;uma&nbsp;chave&nbsp;de&nbsp;64&nbsp;bits&nbsp;por&nbsp;força&nbsp;bruta?</span></div></div>
+    <p></p>
+    <p><br>
+    </p>
+    <p> </p>
+    <h2>C) TEXTO vs BINÁRIO (Não Texto)</h2>
+    <p>Um DÍGITO é uma representação de um número</p>
+    <p>Um CARACTERE é uma representação de uma letra (ou símbolo). Um texto é
+      formado por caracteres.</p>
+    <p>Observe o caractere '0' é diferente do número 0. Os sistemas usam " " ou
+      ' ' para identificar caracteres.</p>
+    <p>Computadores representam qualquer tipo de informação como números. No
+      caso de caracteres, esses números são interpretados como CÓDIGOS.</p>
+    <p>Para interpretar algo como texto é necessário DIZER que os números em
+      binário DEVEM SER TRADUZIDOS por uma TABELA DE CODIFICAÇÃO.</p>
+    <p>Quando a codificação não é fornecida de forma explícita, muitos sistemas
+      assumem que o texto está codificado em ASCII ou UTF-8 (que é o caso do
+      Python).</p>
+    <br>
+    <div style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div
+style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div
+style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div><span
+style="color: #6a9955;">#&nbsp;1)&nbsp;cria&nbsp;o&nbsp;arquivo&nbsp;como&nbsp;TEXTO</span></div><div><span
+style="color: #9cdcfe;">f</span><span style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span
+style="color: #dcdcaa;">open</span><span style="color: #d4d4d4;">(</span><span style="color: #ce9178;">'teste.txt'</span><span
+style="color: #d4d4d4;">,</span><span style="color: #ce9178;">'w'</span><span style="color: #d4d4d4;">)</span></div><div><span
+style="color: #9cdcfe;">tamanho</span><span style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span
+style="color: #9cdcfe;">f</span><span style="color: #d4d4d4;">.</span><span style="color: #dcdcaa;">write</span><span
+style="color: #d4d4d4;">(</span><span style="color: #ce9178;">'49192'</span><span
+style="color: #d4d4d4;">)</span></div><div><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #ce9178;">'Este&nbsp;arquivo&nbsp;tem&nbsp;'</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #9cdcfe;">tamanho</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #ce9178;">'bytes'</span><span
+style="color: #d4d4d4;">)</span></div><div><span style="color: #9cdcfe;">f</span><span
+style="color: #d4d4d4;">.</span><span style="color: #dcdcaa;">close</span><span
+style="color: #d4d4d4;">()</span></div><br><div><span style="color: #6a9955;">#&nbsp;2)&nbsp;cria&nbsp;o&nbsp;arquivo&nbsp;como&nbsp;BINARIO</span></div><div><span
+style="color: #9cdcfe;">f</span><span style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span
+style="color: #dcdcaa;">open</span><span style="color: #d4d4d4;">(</span><span style="color: #ce9178;">'testeb.txt'</span><span
+style="color: #d4d4d4;">,</span><span style="color: #ce9178;">'wb'</span><span style="color: #d4d4d4;">)</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #ce9178;">'Representação&nbsp;de&nbsp;49192&nbsp;em&nbsp;HEXA:&nbsp;'</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #dcdcaa;">format</span><span
+style="color: #d4d4d4;">(</span><span style="color: #b5cea8;">49192</span><span
+style="color: #d4d4d4;">,</span><span style="color: #ce9178;">'1x'</span><span style="color: #d4d4d4;">))</span></div><div><span
+style="color: #9cdcfe;">tamanho</span><span style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span
+style="color: #9cdcfe;">f</span><span style="color: #d4d4d4;">.</span><span style="color: #dcdcaa;">write</span><span
+style="color: #d4d4d4;">(</span><span style="color: #4ec9b0;">bytearray</span><span
+style="color: #d4d4d4;">([</span><span style="color: #569cd6;">0x</span><span style="color: #b5cea8;">c0</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #569cd6;">0x</span><span
+style="color: #b5cea8;">28</span><span style="color: #d4d4d4;">]))</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #ce9178;">'Este&nbsp;arquivo&nbsp;tem&nbsp;'</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #9cdcfe;">tamanho</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #ce9178;">'bytes'</span><span style="color: #d4d4d4;">)</span></div><div><span
+style="color: #9cdcfe;">f</span><span style="color: #d4d4d4;">.</span><span style="color: #dcdcaa;">close</span><span
+style="color: #d4d4d4;">()</span></div><br><div><span style="color: #6a9955;">#&nbsp;3)&nbsp;abre&nbsp;o&nbsp;arquivo&nbsp;em&nbsp;modo&nbsp;TEXTO</span></div><div><span
+style="color: #9cdcfe;">f</span><span style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span
+style="color: #dcdcaa;">open</span><span style="color: #d4d4d4;">(</span><span style="color: #ce9178;">'teste.txt'</span><span
+style="color: #d4d4d4;">,</span><span style="color: #ce9178;">'r'</span><span style="color: #d4d4d4;">)</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #ce9178;">'texto&nbsp;como&nbsp;texto:&nbsp;'</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #9cdcfe;">f</span><span style="color: #d4d4d4;">.</span><span style="color: #dcdcaa;">read</span><span
+style="color: #d4d4d4;">())</span></div><div><span style="color: #9cdcfe;">f</span><span
+style="color: #d4d4d4;">.</span><span style="color: #dcdcaa;">close</span><span
+style="color: #d4d4d4;">()</span></div><br><div><span style="color: #6a9955;">#&nbsp;4)&nbsp;abre&nbsp;o&nbsp;arquivo&nbsp;em&nbsp;modo&nbsp;BINARIO</span></div><div><span
+style="color: #9cdcfe;">f</span><span style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span
+style="color: #dcdcaa;">open</span><span style="color: #d4d4d4;">(</span><span style="color: #ce9178;">'testeb.txt'</span><span
+style="color: #d4d4d4;">,</span><span style="color: #ce9178;">'rb'</span><span style="color: #d4d4d4;">)</span></div><div><span
+style="color: #9cdcfe;">res</span><span style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span
+style="color: #9cdcfe;">f</span><span style="color: #d4d4d4;">.</span><span style="color: #dcdcaa;">read</span><span
+style="color: #d4d4d4;">()</span></div><div><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #ce9178;">'binario&nbsp;como&nbsp;binario:&nbsp;'</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #9cdcfe;">res</span><span
+style="color: #d4d4d4;">)</span></div><div><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #ce9178;">'o&nbsp;print&nbsp;anterior&nbsp;interpretou&nbsp;os&nbsp;bytes&nbsp;como&nbsp;caracteres'</span><span
+style="color: #d4d4d4;">)</span></div><div><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #ce9178;">'abaixo,&nbsp;os&nbsp;bytes&nbsp;estão&nbsp;sendo&nbsp;intepretado&nbsp;como&nbsp;hexa'</span><span
+style="color: #d4d4d4;">)</span></div><div><span style="color: #c586c0;">for</span><span
+style="color: #d4d4d4;">&nbsp;</span><span style="color: #9cdcfe;">i</span><span
+style="color: #d4d4d4;">&nbsp;</span><span style="color: #c586c0;">in</span><span
+style="color: #d4d4d4;">&nbsp;</span><span style="color: #9cdcfe;">res</span><span
+style="color: #d4d4d4;">:</span></div><div><span style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #dcdcaa;">format</span><span style="color: #d4d4d4;">(&nbsp;</span><span
+style="color: #9cdcfe;">i</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #ce9178;">'x'</span><span style="color: #d4d4d4;">&nbsp;))</span></div><div><span
+style="color: #9cdcfe;">f</span><span style="color: #d4d4d4;">.</span><span style="color: #dcdcaa;">close</span><span
+style="color: #d4d4d4;">()</span></div><br><div><span style="color: #6a9955;">#&nbsp;Exercicio&nbsp;1:&nbsp;o&nbsp;que&nbsp;acontece&nbsp;se&nbsp;você&nbsp;abrir&nbsp;o&nbsp;arquivo&nbsp;testeb.txt&nbsp;com&nbsp;o&nbsp;notepad?</span></div><div><span
+style="color: #6a9955;">#&nbsp;Exercicio&nbsp;2:&nbsp;como&nbsp;interprentar&nbsp;o&nbsp;resultado&nbsp;do&nbsp;passo&nbsp;4?</span></div><div><span
+style="color: #6a9955;">#&nbsp;Exercicio&nbsp;3:&nbsp;qual&nbsp;desses&nbsp;formatos&nbsp;é&nbsp;texto:&nbsp;PDF,&nbsp;DOC,&nbsp;HTML,&nbsp;JSON</span></div></div></div></div>
+    <p> </p>
+    <p><br>
+    </p>
+    <h2>D) UNICODE</h2>
+    <p><a href="https://en.wikipedia.org/wiki/Wikipedia:Language_recognition_chart">Wikipedia:Language
+        recognition chart - Wikipedia</a></p>
+    <p>From Wikipedia: <span style="color: rgb(32, 33, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">The
+        standard, which is maintained by the<span>&nbsp;</span></span><a href="https://en.wikipedia.org/wiki/Unicode_Consortium"
+        title="Unicode Consortium" style="text-decoration: none; color: rgb(6, 69, 173); background: none rgb(255, 255, 255); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">Unicode
+        Consortium</a><span style="color: rgb(32, 33, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">,
+        defines 143,859 characters covering 154 modern and historic<span>&nbsp;</span></span><a
+        href="https://en.wikipedia.org/wiki/Script_%28Unicode%29" title="Script (Unicode)"
+        style="text-decoration: none; color: rgb(6, 69, 173); background: none rgb(255, 255, 255); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">scripts</a><span
+        style="color: rgb(32, 33, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">,
+        as well as symbols,<span>&nbsp;</span></span><a href="https://en.wikipedia.org/wiki/Emoji"
+        title="Emoji" style="text-decoration: none; color: rgb(6, 69, 173); background: none rgb(255, 255, 255); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">emoji</a><span
+        style="color: rgb(32, 33, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">,
+        and non-visual control and formatting codes. Unicode 14.0 is now in beta
+        with 144,697 characters, including 5 new scripts, and 37 new emoji
+        characters.</span></p>
+    <p><span style="color: rgb(32, 33, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Veja
+        a lista de códigos suportados pelo Python:&nbsp; </span><a href="https://docs.python.org/2.4/lib/standard-encodings.html">4.9.2
+        Standard Encodings (python.org)</a></p>
+    <br>
+    <h2>E) ASCII, UTF-8, UTF-16</h2>
+    <p>UTF-8 e UTF-16 são formas de representar UNICODE</p>
+    <p>Veja a representação de alguns caracteres UNICODE em UTF-8: <a href="https://www.utf8-chartable.de/">Unicode/UTF-8-character
+        table (utf8-chartable.de)</a></p>
+    <p><br>
+    </p>
+    <div style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div
+style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div
+style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div
+style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div
+style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div><span
+style="color: #9cdcfe;">codec</span><span style="color: #d4d4d4;"> = </span><span
+style="color: #ce9178;">'utf-16'</span></div><div><span style="color: #9cdcfe;">texto</span><span
+style="color: #d4d4d4;"> = </span><span style="color: #ce9178;">'mas é muita emoção'</span></div><div><span
+style="color: #c586c0;">try</span><span style="color: #d4d4d4;">:</span></div><div><span
+style="color: #d4d4d4;">&nbsp; &nbsp; </span><span style="color: #9cdcfe;">embytes</span><span
+style="color: #d4d4d4;"> = </span><span style="color: #9cdcfe;">texto</span><span
+style="color: #d4d4d4;">.</span><span style="color: #dcdcaa;">encode</span><span
+style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">codec</span><span
+style="color: #d4d4d4;">)</span></div><div><span style="color: #d4d4d4;">&nbsp; &nbsp; </span><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #ce9178;">'em bytes:'</span><span style="color: #d4d4d4;">, </span><span
+style="color: #9cdcfe;">embytes</span><span style="color: #d4d4d4;">)</span></div><div><span
+style="color: #d4d4d4;">&nbsp; &nbsp; </span><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #ce9178;">'em string:'</span><span
+style="color: #d4d4d4;">, </span><span style="color: #9cdcfe;">embytes</span><span
+style="color: #d4d4d4;">.</span><span style="color: #dcdcaa;">decode</span><span
+style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">codec</span><span
+style="color: #d4d4d4;">))</span></div><div><span style="color: #c586c0;">except</span><span
+style="color: #d4d4d4;"> </span><span style="color: #4ec9b0;">Exception</span><span
+style="color: #d4d4d4;"> </span><span style="color: #c586c0;">as</span><span style="color: #d4d4d4;"> </span><span
+style="color: #9cdcfe;">e</span><span style="color: #d4d4d4;">:</span></div><div><span
+style="color: #d4d4d4;">&nbsp; &nbsp; </span><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">e</span><span style="color: #d4d4d4;">, </span><span
+style="color: #ce9178;">'não consigo representar isso'</span><span style="color: #d4d4d4;">) &nbsp;</span></div><br><div><span
+style="color: #6a9955;"># OBS:</span></div><div><span style="color: #6a9955;"># utf-16: adiciona um BOM FFFE no início do código</span></div><div><span
+style="color: #6a9955;"># char: assume que o código convertido é UNICODE</span></div><br><div><span
+style="color: #6a9955;"># Exercicio 1: teste os codecs ansi, utf-8 e utf-16?</span></div><div><span
+style="color: #6a9955;"># Exercicio 2: verifique em que condições ascii não funciona.</span></div></div></div></div></div></div>
+    <p></p>
+    <h2><br>
+    </h2>
+    <h2>F) EXERCÍCIO: Caeser Cipher em binário</h2>
+    <p><br>
+    </p>
+    <div style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div
+style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div><span
+style="color: #569cd6;">def</span><span style="color: #d4d4d4;">&nbsp;</span><span
+style="color: #dcdcaa;">ror</span><span style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">n</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #9cdcfe;">chave</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #9cdcfe;">tam</span><span
+style="color: #d4d4d4;">):</span></div><div><span style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #c586c0;">return</span><span style="color: #d4d4d4;">&nbsp;(</span><span
+style="color: #b5cea8;">2</span><span style="color: #d4d4d4;">**</span><span style="color: #9cdcfe;">tam</span><span
+style="color: #d4d4d4;">-</span><span style="color: #b5cea8;">1</span><span style="color: #d4d4d4;">)&nbsp;&amp;&nbsp;(</span><span
+style="color: #9cdcfe;">n</span><span style="color: #d4d4d4;">&nbsp;&gt;&gt;&nbsp;</span><span
+style="color: #9cdcfe;">chave</span><span style="color: #d4d4d4;">&nbsp;|&nbsp;</span><span
+style="color: #9cdcfe;">n</span><span style="color: #d4d4d4;">&nbsp;&lt;&lt;&nbsp;(</span><span
+style="color: #9cdcfe;">tam</span><span style="color: #d4d4d4;">-</span><span style="color: #9cdcfe;">chave</span><span
+style="color: #d4d4d4;">)&nbsp;)</span></div><br><div><span style="color: #569cd6;">def</span><span
+style="color: #d4d4d4;">&nbsp;</span><span style="color: #dcdcaa;">rol</span><span
+style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">n</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #9cdcfe;">chave</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #9cdcfe;">tam</span><span style="color: #d4d4d4;">):</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c586c0;">return</span><span
+style="color: #d4d4d4;">&nbsp;(</span><span style="color: #b5cea8;">2</span><span
+style="color: #d4d4d4;">**</span><span style="color: #9cdcfe;">tam</span><span style="color: #d4d4d4;">-</span><span
+style="color: #b5cea8;">1</span><span style="color: #d4d4d4;">)&nbsp;&amp;&nbsp;(</span><span
+style="color: #9cdcfe;">n</span><span style="color: #d4d4d4;">&nbsp;&lt;&lt;&nbsp;</span><span
+style="color: #9cdcfe;">chave</span><span style="color: #d4d4d4;">&nbsp;|&nbsp;</span><span
+style="color: #9cdcfe;">n</span><span style="color: #d4d4d4;">&nbsp;&gt;&gt;&nbsp;(</span><span
+style="color: #9cdcfe;">tam</span><span style="color: #d4d4d4;">-</span><span style="color: #9cdcfe;">chave</span><span
+style="color: #d4d4d4;">)&nbsp;)</span></div><br><div><span style="color: #569cd6;">def</span><span
+style="color: #d4d4d4;">&nbsp;</span><span style="color: #dcdcaa;">cripto</span><span
+style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">mensagem</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #9cdcfe;">chave</span><span
+style="color: #d4d4d4;">):</span></div><div><span style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #9cdcfe;">cripto</span><span style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span
+style="color: #ce9178;">""</span></div><div><span style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #c586c0;">for</span><span style="color: #d4d4d4;">&nbsp;</span><span
+style="color: #9cdcfe;">c</span><span style="color: #d4d4d4;">&nbsp;</span><span
+style="color: #c586c0;">in</span><span style="color: #d4d4d4;">&nbsp;</span><span
+style="color: #9cdcfe;">mensagem</span><span style="color: #d4d4d4;">:</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #9cdcfe;">codigo</span><span style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span
+style="color: #dcdcaa;">ord</span><span style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">c</span><span
+style="color: #d4d4d4;">)&nbsp;+&nbsp;</span><span style="color: #9cdcfe;">chave</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #9cdcfe;">cripto</span><span style="color: #d4d4d4;">&nbsp;+=&nbsp;</span><span
+style="color: #dcdcaa;">chr</span><span style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">codigo</span><span
+style="color: #d4d4d4;">)</span></div><div><span style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #c586c0;">return</span><span style="color: #d4d4d4;">&nbsp;</span><span
+style="color: #9cdcfe;">cripto</span></div><br><div><span style="color: #9cdcfe;">plain</span><span
+style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span style="color: #ce9178;">'Nada&nbsp;de&nbsp;novo&nbsp;no&nbsp;front'</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #dcdcaa;">cripto</span><span style="color: #d4d4d4;">(</span><span
+style="color: #9cdcfe;">plain</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #b5cea8;">3</span><span style="color: #d4d4d4;">))</span></div><div><span
+style="color: #9cdcfe;">cipher</span><span style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span
+style="color: #dcdcaa;">cripto</span><span style="color: #d4d4d4;">(</span><span
+style="color: #9cdcfe;">plain</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #b5cea8;">4</span><span style="color: #d4d4d4;">)</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #9cdcfe;">cipher</span><span style="color: #d4d4d4;">)</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #dcdcaa;">cripto</span><span style="color: #d4d4d4;">(</span><span
+style="color: #9cdcfe;">cipher</span><span style="color: #d4d4d4;">,-</span><span
+style="color: #b5cea8;">4</span><span style="color: #d4d4d4;">))</span></div><br><div><span
+style="color: #6a9955;">#&nbsp;1)&nbsp;Decodifique&nbsp;a&nbsp;mensagem&nbsp;Sfif%ij%st{t%st%kwtsy</span></div><div><span
+style="color: #6a9955;">#&nbsp;2)&nbsp;Qual&nbsp;o&nbsp;espaço&nbsp;de&nbsp;chaves&nbsp;do&nbsp;algoritmo?&nbsp;Qual&nbsp;o&nbsp;tamanho&nbsp;da&nbsp;chave?</span></div><div><span
+style="color: #6a9955;">#&nbsp;3)&nbsp;Implemente&nbsp;o&nbsp;algoritmo&nbsp;usando&nbsp;rotação&nbsp;de&nbsp;bits&nbsp;ao&nbsp;invés&nbsp;de&nbsp;caracteres</span></div><br><div><span
+style="color: #9cdcfe;">c</span><span style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span
+style="color: #dcdcaa;">ord</span><span style="color: #d4d4d4;">(</span><span style="color: #ce9178;">'X'</span><span
+style="color: #d4d4d4;">)&nbsp;</span></div><div><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(&nbsp;</span><span style="color: #dcdcaa;">format</span><span
+style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">c</span><span style="color: #d4d4d4;">,</span><span
+style="color: #ce9178;">'b'</span><span style="color: #d4d4d4;">).</span><span style="color: #dcdcaa;">zfill</span><span
+style="color: #d4d4d4;">(</span><span style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">)&nbsp;)</span></div><div><span
+style="color: #9cdcfe;">c</span><span style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span
+style="color: #dcdcaa;">ror</span><span style="color: #d4d4d4;">(&nbsp;</span><span
+style="color: #9cdcfe;">c</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #b5cea8;">4</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">)</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(&nbsp;</span><span
+style="color: #dcdcaa;">format</span><span style="color: #d4d4d4;">(</span><span
+style="color: #9cdcfe;">c</span><span style="color: #d4d4d4;">,</span><span style="color: #ce9178;">'b'</span><span
+style="color: #d4d4d4;">).</span><span style="color: #dcdcaa;">zfill</span><span
+style="color: #d4d4d4;">(</span><span style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">)&nbsp;)</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #dcdcaa;">chr</span><span style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">c</span><span
+style="color: #d4d4d4;">))</span></div><div><span style="color: #9cdcfe;">c</span><span
+style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span style="color: #dcdcaa;">rol</span><span
+style="color: #d4d4d4;">(&nbsp;</span><span style="color: #9cdcfe;">c</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #b5cea8;">4</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #b5cea8;">8</span><span
+style="color: #d4d4d4;">)</span></div><div><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(&nbsp;</span><span style="color: #dcdcaa;">format</span><span
+style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">c</span><span style="color: #d4d4d4;">,</span><span
+style="color: #ce9178;">'b'</span><span style="color: #d4d4d4;">).</span><span style="color: #dcdcaa;">zfill</span><span
+style="color: #d4d4d4;">(</span><span style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">)&nbsp;)</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #dcdcaa;">chr</span><span style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">c</span><span
+style="color: #d4d4d4;">))</span></div><br><br><div><span style="color: #6a9955;">#&nbsp;4)&nbsp;Como&nbsp;é&nbsp;possível&nbsp;aumentar&nbsp;o&nbsp;espaço&nbsp;de&nbsp;chaves&nbsp;do&nbsp;algoritmo</span></div></div></div>
+    <p></p>
+    <p> </p>
+    <p><br>
+    </p>
+    <p><br>
+    </p>
+    <p><br>
+    </p>
+    <p></p>
+    <p><br>
+    </p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p><br>
+    </p>
+    <p><br>
+    </p>
+    <p><br>
+    </p>
+    <p></p>
+  </body>
+</html>

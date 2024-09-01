@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Codificação de Caracteres</title>
+  </head>
+  <body>
+    <h1>OPERAÇÕES BINÁRIAS EM CRIPTOGRAFIA: XOR</h1>
+    <br>
+    <h2>A) Operações lógicas em criptografia</h2>
+    <p>O shift de caracteres usado pelo Caseser Cipher pode ser implementado
+      como uma soma no código do caractere.</p>
+    <p>A soma é apenas um dos possíveis tipos de operações binárias que podem
+      ser usadas na criptografia.</p>
+    <p>Entre as operações binárias, apenas aquelas que foram inversíveis (isto
+      é, permitirem a volta ao formato original) são possíveis.</p>
+    <p>As operações lógicas tem a vantagem de não alteraro tamanho da palavra
+      original, mas APENAS UMA DELAS É INVERSÍVEL.</p>
+    <p>O objetivo deste exercício é verificar quais das operações a seguir são
+      inversíveis:</p>
+    <ul>
+      <li>Complemento (NOT)&nbsp; ~</li>
+      <li>E lógico (AND) &amp;</li>
+      <li>OU lógico (OR) |</li>
+      <li>OU lógico eXclusivo (XOR) ^</li>
+    </ul>
+    <p>Obs. NOT pode ser usado para negar o resultado de outras operações
+      lógicas: NOT AND = NAND, NOT OR = NOR</p>
+    <p><br>
+    </p>
+    <p><b>Exercicio 1</b>: Altere o operador usado na criptografia e verifique
+      qual deles é inversível</p>
+    <div style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div
+style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div><span
+style="color: #569cd6;">def</span><span style="color: #d4d4d4;">&nbsp;</span><span
+style="color: #dcdcaa;">tabela_logica</span><span style="color: #d4d4d4;">():</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #9cdcfe;">dados</span><span
+style="color: #d4d4d4;">&nbsp;=&nbsp;[&nbsp;[&nbsp;</span><span style="color: #569cd6;">0b</span><span
+style="color: #b5cea8;">0</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #569cd6;">0b</span><span style="color: #b5cea8;">0</span><span style="color: #d4d4d4;">&nbsp;],&nbsp;[&nbsp;</span><span
+style="color: #569cd6;">0b</span><span style="color: #b5cea8;">0</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #569cd6;">0b</span><span style="color: #b5cea8;">1</span><span style="color: #d4d4d4;">&nbsp;],&nbsp;[&nbsp;</span><span
+style="color: #569cd6;">0b</span><span style="color: #b5cea8;">1</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #569cd6;">0b</span><span style="color: #b5cea8;">0</span><span style="color: #d4d4d4;">&nbsp;],&nbsp;[&nbsp;</span><span
+style="color: #569cd6;">0b</span><span style="color: #b5cea8;">1</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #569cd6;">0b</span><span style="color: #b5cea8;">1</span><span style="color: #d4d4d4;">&nbsp;]&nbsp;]</span></div><br><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c586c0;">for</span><span
+style="color: #d4d4d4;">&nbsp;</span><span style="color: #9cdcfe;">x</span><span
+style="color: #d4d4d4;">&nbsp;</span><span style="color: #c586c0;">in</span><span
+style="color: #d4d4d4;">&nbsp;</span><span style="color: #9cdcfe;">dados</span><span
+style="color: #d4d4d4;">:</span></div><div><span style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #9cdcfe;">x</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #ce9178;">"AND"</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #9cdcfe;">x</span><span style="color: #d4d4d4;">[</span><span style="color: #b5cea8;">0</span><span
+style="color: #d4d4d4;">]&nbsp;&amp;&nbsp;</span><span style="color: #9cdcfe;">x</span><span
+style="color: #d4d4d4;">[</span><span style="color: #b5cea8;">1</span><span style="color: #d4d4d4;">])</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">x</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #ce9178;">"OR"</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #9cdcfe;">x</span><span style="color: #d4d4d4;">[</span><span style="color: #b5cea8;">0</span><span
+style="color: #d4d4d4;">]&nbsp;|&nbsp;</span><span style="color: #9cdcfe;">x</span><span
+style="color: #d4d4d4;">[</span><span style="color: #b5cea8;">1</span><span style="color: #d4d4d4;">])</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">x</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #ce9178;">"XOR"</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #9cdcfe;">x</span><span style="color: #d4d4d4;">[</span><span style="color: #b5cea8;">0</span><span
+style="color: #d4d4d4;">]&nbsp;^&nbsp;</span><span style="color: #9cdcfe;">x</span><span
+style="color: #d4d4d4;">[</span><span style="color: #b5cea8;">1</span><span style="color: #d4d4d4;">])</span></div><br><div><span
+style="color: #569cd6;">def</span><span style="color: #d4d4d4;">&nbsp;</span><span
+style="color: #dcdcaa;">cripto</span><span style="color: #d4d4d4;">(</span><span
+style="color: #9cdcfe;">mensagem</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #9cdcfe;">chave</span><span style="color: #d4d4d4;">):</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #9cdcfe;">cripto</span><span
+style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span style="color: #ce9178;">""</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c586c0;">for</span><span
+style="color: #d4d4d4;">&nbsp;</span><span style="color: #9cdcfe;">c</span><span
+style="color: #d4d4d4;">&nbsp;</span><span style="color: #c586c0;">in</span><span
+style="color: #d4d4d4;">&nbsp;</span><span style="color: #9cdcfe;">mensagem</span><span
+style="color: #d4d4d4;">:</span></div><div><span style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #9cdcfe;">codigo</span><span style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span
+style="color: #dcdcaa;">ord</span><span style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">c</span><span
+style="color: #d4d4d4;">)&nbsp;+&nbsp;</span><span style="color: #9cdcfe;">chave</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #9cdcfe;">cripto</span><span style="color: #d4d4d4;">&nbsp;+=&nbsp;</span><span
+style="color: #dcdcaa;">chr</span><span style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">codigo</span><span
+style="color: #d4d4d4;">)</span></div><div><span style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #c586c0;">return</span><span style="color: #d4d4d4;">&nbsp;</span><span
+style="color: #9cdcfe;">cripto</span></div><br><div><span style="color: #dcdcaa;">tabela_logica</span><span
+style="color: #d4d4d4;">()</span></div><br><div><span style="color: #9cdcfe;">plain</span><span
+style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span style="color: #ce9178;">"Nada&nbsp;de&nbsp;novo&nbsp;no&nbsp;front"</span></div><div><span
+style="color: #9cdcfe;">chave</span><span style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span
+style="color: #b5cea8;">2</span></div><div><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #ce9178;">"ANTES:"</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #9cdcfe;">plain</span><span
+style="color: #d4d4d4;">)</span></div><div><span style="color: #9cdcfe;">cipher</span><span
+style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span style="color: #dcdcaa;">cripto</span><span
+style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">plain</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #9cdcfe;">chave</span><span
+style="color: #d4d4d4;">)</span></div><div><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #ce9178;">"CRIPTO:"</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #9cdcfe;">cipher</span><span
+style="color: #d4d4d4;">)</span></div><div><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #ce9178;">"DECRIPTO:"</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #dcdcaa;">cripto</span><span
+style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">cipher</span><span
+style="color: #d4d4d4;">,&nbsp;-</span><span style="color: #9cdcfe;">chave</span><span
+style="color: #d4d4d4;">)&nbsp;)</span></div></div></div>
+    <p></p>
+    <p><b>Exercicio 2</b>: Altere o algoritmo para que a criptografia seja feita
+      com rotação de bits </p>
+    <div style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div
+style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div
+style="color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div><span
+style="color: #569cd6;">def</span><span style="color: #d4d4d4;">&nbsp;</span><span
+style="color: #dcdcaa;">ror</span><span style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">n</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #9cdcfe;">chave</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #9cdcfe;">tam</span><span
+style="color: #d4d4d4;">):</span></div><div><span style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #c586c0;">return</span><span style="color: #d4d4d4;">&nbsp;(</span><span
+style="color: #b5cea8;">2</span><span style="color: #d4d4d4;">**</span><span style="color: #9cdcfe;">tam</span><span
+style="color: #d4d4d4;">-</span><span style="color: #b5cea8;">1</span><span style="color: #d4d4d4;">)&nbsp;&amp;&nbsp;(</span><span
+style="color: #9cdcfe;">n</span><span style="color: #d4d4d4;">&nbsp;&gt;&gt;&nbsp;</span><span
+style="color: #9cdcfe;">chave</span><span style="color: #d4d4d4;">&nbsp;|&nbsp;</span><span
+style="color: #9cdcfe;">n</span><span style="color: #d4d4d4;">&nbsp;&lt;&lt;&nbsp;(</span><span
+style="color: #9cdcfe;">tam</span><span style="color: #d4d4d4;">-</span><span style="color: #9cdcfe;">chave</span><span
+style="color: #d4d4d4;">)&nbsp;)</span></div><br><div><span style="color: #569cd6;">def</span><span
+style="color: #d4d4d4;">&nbsp;</span><span style="color: #dcdcaa;">rol</span><span
+style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">n</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #9cdcfe;">chave</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #9cdcfe;">tam</span><span style="color: #d4d4d4;">):</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c586c0;">return</span><span
+style="color: #d4d4d4;">&nbsp;(</span><span style="color: #b5cea8;">2</span><span
+style="color: #d4d4d4;">**</span><span style="color: #9cdcfe;">tam</span><span style="color: #d4d4d4;">-</span><span
+style="color: #b5cea8;">1</span><span style="color: #d4d4d4;">)&nbsp;&amp;&nbsp;(</span><span
+style="color: #9cdcfe;">n</span><span style="color: #d4d4d4;">&nbsp;&lt;&lt;&nbsp;</span><span
+style="color: #9cdcfe;">chave</span><span style="color: #d4d4d4;">&nbsp;|&nbsp;</span><span
+style="color: #9cdcfe;">n</span><span style="color: #d4d4d4;">&nbsp;&gt;&gt;&nbsp;(</span><span
+style="color: #9cdcfe;">tam</span><span style="color: #d4d4d4;">-</span><span style="color: #9cdcfe;">chave</span><span
+style="color: #d4d4d4;">)&nbsp;)</span></div><br><div><span style="color: #569cd6;">def</span><span
+style="color: #d4d4d4;">&nbsp;</span><span style="color: #dcdcaa;">demo_rotacao</span><span
+style="color: #d4d4d4;">():</span></div><div><span style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #9cdcfe;">c</span><span style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span
+style="color: #dcdcaa;">ord</span><span style="color: #d4d4d4;">(</span><span style="color: #ce9178;">'X'</span><span
+style="color: #d4d4d4;">)&nbsp;</span></div><div><span style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(&nbsp;</span><span
+style="color: #dcdcaa;">format</span><span style="color: #d4d4d4;">(</span><span
+style="color: #9cdcfe;">c</span><span style="color: #d4d4d4;">,</span><span style="color: #ce9178;">'b'</span><span
+style="color: #d4d4d4;">).</span><span style="color: #dcdcaa;">zfill</span><span
+style="color: #d4d4d4;">(</span><span style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">),&nbsp;</span><span
+style="color: #ce9178;">"original"</span><span style="color: #d4d4d4;">&nbsp;)</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #dcdcaa;">format</span><span
+style="color: #d4d4d4;">(</span><span style="color: #dcdcaa;">ror</span><span style="color: #d4d4d4;">(&nbsp;</span><span
+style="color: #9cdcfe;">c</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #b5cea8;">1</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">),</span><span style="color: #ce9178;">'b'</span><span
+style="color: #d4d4d4;">).</span><span style="color: #dcdcaa;">zfill</span><span
+style="color: #d4d4d4;">(</span><span style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">),&nbsp;</span><span
+style="color: #ce9178;">"um&nbsp;para&nbsp;direita"</span><span style="color: #d4d4d4;">&nbsp;)</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #dcdcaa;">format</span><span
+style="color: #d4d4d4;">(</span><span style="color: #dcdcaa;">ror</span><span style="color: #d4d4d4;">(&nbsp;</span><span
+style="color: #9cdcfe;">c</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #b5cea8;">2</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">),</span><span style="color: #ce9178;">'b'</span><span
+style="color: #d4d4d4;">).</span><span style="color: #dcdcaa;">zfill</span><span
+style="color: #d4d4d4;">(</span><span style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">),&nbsp;</span><span
+style="color: #ce9178;">"dois&nbsp;para&nbsp;direita"</span><span style="color: #d4d4d4;">&nbsp;)</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #dcdcaa;">format</span><span
+style="color: #d4d4d4;">(</span><span style="color: #dcdcaa;">ror</span><span style="color: #d4d4d4;">(&nbsp;</span><span
+style="color: #9cdcfe;">c</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #b5cea8;">3</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">),</span><span style="color: #ce9178;">'b'</span><span
+style="color: #d4d4d4;">).</span><span style="color: #dcdcaa;">zfill</span><span
+style="color: #d4d4d4;">(</span><span style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">),&nbsp;</span><span
+style="color: #ce9178;">"tres&nbsp;para&nbsp;direita"</span><span style="color: #d4d4d4;">&nbsp;)</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #dcdcaa;">format</span><span
+style="color: #d4d4d4;">(</span><span style="color: #dcdcaa;">ror</span><span style="color: #d4d4d4;">(&nbsp;</span><span
+style="color: #9cdcfe;">c</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #b5cea8;">4</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">),</span><span style="color: #ce9178;">'b'</span><span
+style="color: #d4d4d4;">).</span><span style="color: #dcdcaa;">zfill</span><span
+style="color: #d4d4d4;">(</span><span style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">),&nbsp;</span><span
+style="color: #ce9178;">"quarto&nbsp;para&nbsp;direita"</span><span style="color: #d4d4d4;">&nbsp;)</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;</span></div><div><span style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #9cdcfe;">c_shift</span><span style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span
+style="color: #dcdcaa;">ror</span><span style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">c</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #b5cea8;">3</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #b5cea8;">8</span><span
+style="color: #d4d4d4;">)</span></div><div><span style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #ce9178;">"-------------------------------"</span><span style="color: #d4d4d4;">)</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #ce9178;">'X&nbsp;='</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #9cdcfe;">c</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #ce9178;">"rotacao&nbsp;de&nbsp;3&nbsp;&gt;&gt;&gt;"</span><span
+style="color: #d4d4d4;">,&nbsp;</span><span style="color: #dcdcaa;">chr</span><span
+style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">c_shift</span><span
+style="color: #d4d4d4;">),</span><span style="color: #ce9178;">"="</span><span style="color: #d4d4d4;">,</span><span
+style="color: #9cdcfe;">c_shift</span><span style="color: #d4d4d4;">)</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #dcdcaa;">chr</span><span style="color: #d4d4d4;">(</span><span
+style="color: #9cdcfe;">c_shift</span><span style="color: #d4d4d4;">),</span><span
+style="color: #ce9178;">"rotacao&nbsp;de&nbsp;3&nbsp;&lt;&lt;&lt;"</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #dcdcaa;">chr</span><span style="color: #d4d4d4;">(</span><span style="color: #dcdcaa;">rol</span><span
+style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">c_shift</span><span
+style="color: #d4d4d4;">,</span><span style="color: #b5cea8;">3</span><span style="color: #d4d4d4;">,</span><span
+style="color: #b5cea8;">8</span><span style="color: #d4d4d4;">)))</span></div><br><div><span
+style="color: #569cd6;">def</span><span style="color: #d4d4d4;">&nbsp;</span><span
+style="color: #dcdcaa;">cripto</span><span style="color: #d4d4d4;">(</span><span
+style="color: #9cdcfe;">mensagem</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #9cdcfe;">chave</span><span style="color: #d4d4d4;">):</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #9cdcfe;">cripto</span><span
+style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span style="color: #ce9178;">""</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c586c0;">for</span><span
+style="color: #d4d4d4;">&nbsp;</span><span style="color: #9cdcfe;">c</span><span
+style="color: #d4d4d4;">&nbsp;</span><span style="color: #c586c0;">in</span><span
+style="color: #d4d4d4;">&nbsp;</span><span style="color: #9cdcfe;">mensagem</span><span
+style="color: #d4d4d4;">:</span></div><div><span style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #9cdcfe;">codigo</span><span style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span
+style="color: #dcdcaa;">ord</span><span style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">c</span><span
+style="color: #d4d4d4;">)&nbsp;+&nbsp;</span><span style="color: #9cdcfe;">chave</span></div><div><span
+style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #9cdcfe;">cripto</span><span style="color: #d4d4d4;">&nbsp;+=&nbsp;</span><span
+style="color: #dcdcaa;">chr</span><span style="color: #d4d4d4;">(</span><span style="color: #9cdcfe;">codigo</span><span
+style="color: #d4d4d4;">)</span></div><div><span style="color: #d4d4d4;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+style="color: #c586c0;">return</span><span style="color: #d4d4d4;">&nbsp;</span><span
+style="color: #9cdcfe;">cripto</span></div><br><div><span style="color: #dcdcaa;">demo_rotacao</span><span
+style="color: #d4d4d4;">()</span></div><br><div><span style="color: #dcdcaa;">print</span><span
+style="color: #d4d4d4;">(</span><span style="color: #ce9178;">"-------------------------------"</span><span
+style="color: #d4d4d4;">)</span></div><div><span style="color: #9cdcfe;">plain</span><span
+style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span style="color: #ce9178;">'Nada&nbsp;de&nbsp;novo&nbsp;no&nbsp;front'</span></div><div><span
+style="color: #9cdcfe;">cipher</span><span style="color: #d4d4d4;">&nbsp;=&nbsp;</span><span
+style="color: #dcdcaa;">cripto</span><span style="color: #d4d4d4;">(</span><span
+style="color: #9cdcfe;">plain</span><span style="color: #d4d4d4;">,&nbsp;</span><span
+style="color: #b5cea8;">4</span><span style="color: #d4d4d4;">)</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #9cdcfe;">plain</span><span style="color: #d4d4d4;">)</span></div><div><span
+style="color: #dcdcaa;">print</span><span style="color: #d4d4d4;">(</span><span
+style="color: #9cdcfe;">cipher</span><span style="color: #d4d4d4;">)</span></div></div></div></div>
+    <p><br>
+    </p>
+    <p><br>
+    </p>
+    <p></p>
+    <p><br>
+    </p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p><br>
+    </p>
+    <p><br>
+    </p>
+    <p><br>
+    </p>
+    <p></p>
+  </body>
+</html>

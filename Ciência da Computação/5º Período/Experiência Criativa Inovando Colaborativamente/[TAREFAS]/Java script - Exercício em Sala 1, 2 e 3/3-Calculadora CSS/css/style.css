@@ -1,0 +1,49 @@
+.defaultFont {
+    font-family: Arial;
+    font-size: 10px;
+}
+
+.inputNum, .inputResult {
+    height: 17px;
+
+    padding-block: 10px;
+    padding-inline: 10px;
+
+    background-color: #EEE;
+    color: black;
+    border: 1px solid #CCC;
+    outline: none;
+}
+
+.inputNum {
+    width: 3em;
+}
+
+.inputResult {
+    width: 10em;
+}
+
+.buttonCalc, .buttonClear {
+    height: 37px;
+    padding: 10px;
+
+    background-color: #EE5000;
+    color: white;
+    border: none;
+
+    cursor: pointer;
+}
+
+.buttonCalc {
+    width: 37px;
+
+    font-size: 14px;
+}
+
+.buttonClear {
+    width: 50px;
+}
+
+.spanSign {
+    
+}

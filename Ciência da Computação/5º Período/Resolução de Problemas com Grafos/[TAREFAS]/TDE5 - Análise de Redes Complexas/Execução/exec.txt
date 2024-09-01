@@ -1,0 +1,55 @@
+c:\Users\ladsw\OneDrive\Desktop\Universidade\Ciência da Computação\5º Período\Resolução de Problemas com Grafos\[TAREFAS]\TDE5 - Análise de Redes Complexas\tde5_análise_de_redes_complexas.py:1324: DeprecationWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  df2 = df2.groupby('cast').apply(lambda x: list(zip(x['cast'], x['count']))).reset_index(name='cast_counts').explode('cast_counts')
+0     (("BIG FEGGANS, DEMI LOVATO), 1)
+1       (("BIG FEGGANS, JOE JONAS), 1)
+2     (("BIG FEGGANS, KEVIN JONAS), 1)
+3      (("BIG FEGGANS, NICK JONAS), 1)
+4    (("BIG FEGGANS, TAYLOR SWIFT), 1)
+Name: cast_counts, dtype: object
+cast           966068
+cast_counts    966068
+dtype: int64
+60921 483034
+Here 4
+Degree Centrality of GILBERT CHAN: 0.0001575713010137087
+Degree Centrality of CELSO FRATESCHI: 0.00016414970453053183
+Execution time Ex4: 8007.5790 seconds
+Here 5
+Ator -> Director Graph
+1. MARTIN SCORSESE: 0.0021
+2. STEVEN SPIELBERG: 0.0021
+3. JOSEPH KANE: 0.0020
+4. DON MICHAEL PAUL: 0.0018
+5. CATHY GARCIA-MOLINA: 0.0016
+6. PAUL HOEN: 0.0016
+7. RON HOWARD: 0.0015
+8. ROBERT RODRIGUEZ: 0.0015
+9. TOM SHADYAC: 0.0014
+10. RICHARD WHORF: 0.0014
+
+Ator -> Ator Graph
+1. ANUPAM KHER: 0.0061
+2. DANNY TREJO: 0.0045
+3. SAMUEL L. JACKSON: 0.0045
+4. FRED TATASCIORE: 0.0045
+5. FRED ARMISEN: 0.0043
+6. JOHN GOODMAN: 0.0043
+7. AMITABH BACHCHAN: 0.0042
+8. PARESH RAWAL: 0.0041
+9. MORGAN FREEMAN: 0.0041
+10. LIEV SCHREIBER: 0.0040
+Execution time Ex5: 7753.1744 seconds
+Here 7
+Ator -> Director Graph
+1. ROBERT DOWNEY: 0.0055
+2. JACK BLACK: 0.0051
+3. BEN STILLER: 0.0041
+4. SELENA GOMEZ: 0.0039
+5. JANE LYNCH: 0.0039
+6. MAYA RUDOLPH: 0.0034
+7. SHARON STONE: 0.0034
+8. JACKI WEAVER: 0.0033
+9. ZAC EFRON: 0.0033
+10. VINCENT D'ONOFRIO: 0.0033
+
+Ator -> Ator Graph
