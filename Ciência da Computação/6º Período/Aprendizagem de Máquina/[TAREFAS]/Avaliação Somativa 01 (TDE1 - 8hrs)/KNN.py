@@ -13,70 +13,79 @@ import sklearn.neighbors
 from typing import Iterable
 
 
-# FUNCTIONS
-# Ploting model dataset function
-def model_dataset_plot(model_data, model_labels):
-    _, ax = plt.subplots()
-    for n_class in range(0, len(np.unique(model_labels))):
-        ax.scatter(
-            model_data[model_labels==n_class, 0],
-            model_data[model_labels==n_class, 1],
-            c=tuple(mcolors.BASE_COLORS.keys())[n_class],
-            label=str(n_class)
-        )
-    ax.legend()
-    plt.show()
-
-
-# Model analysis function
-def model_analysis(labels, test_labels, predicted_labels):
-    print("Accuracy Score:", sklearn.metrics.accuracy_score(test_labels, predicted_labels), end="\n\n")
-    print(sklearn.metrics.classification_report(test_labels, predicted_labels))
-
-    cm = sklearn.metrics.confusion_matrix(test_labels, predicted_labels, labels=labels)
-    sklearn.metrics.ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels).plot()
-
-
 # LOADING MODEL
-# Defining the random seed
-random_seed = 9999
+# Class for holding each model dataset
+class model_dataset:
 
-# Loading the model dataset
-data, labels = sklearn.datasets.load_breast_cancer(return_X_y=True)
+    def __init__(self, data:Iterable, labels:Iterable, p:int, k_neighbors:int, random_seed:int) -> None:
+        self.data = data
+        self.labels = labels
 
-# Ploting model dataset
-#model_dataset_plot(data, labels)
+        # Defining the random seed
+        self.random_seed = random_seed
 
-# Splitting the model dataset into train/test groups
-train_data, test_data, train_labels, test_labels = sklearn.model_selection.train_test_split(
-    data,
-    labels,
-    train_size=0.7,
-    test_size=0.3,
-    random_state=random_seed
-)
+        # Defining the common parameters
+        self.p = p
+        self.k_neighbors = k_neighbors
+        
+        # Splitting the model dataset into train/test groups
+        self.train_data, self.test_data, self.train_labels, self.test_labels = sklearn.model_selection.train_test_split(
+            data,
+            labels,
+            train_size=0.7,
+            test_size=0.3,
+            random_state=random_seed
+        )
 
-# Defining the common parameters
-p = 2
-k_neighbors = 5
+
+    def plot(self) -> None:
+        # Ploting model dataset function
+        _, ax = plt.subplots()
+        for n_class in range(0, len(np.unique(self.labels))):
+            ax.scatter(
+                self.data[self.labels==n_class, 0],
+                self.data[self.labels==n_class, 1],
+                c=tuple(mcolors.BASE_COLORS.keys())[n_class],
+                label=str(n_class)
+            )
+        ax.legend()
+        plt.show()
+    
+
+    def analysis(self, predicted_labels:Iterable) -> None:
+        # Model analysis function
+        print("Accuracy Score:", sklearn.metrics.accuracy_score(self.test_labels, predicted_labels), end="\n\n")
+        print(sklearn.metrics.classification_report(self.test_labels, predicted_labels))
+
+        cm = sklearn.metrics.confusion_matrix(self.test_labels, predicted_labels, labels=np.unique(self.train_labels))
+        sklearn.metrics.ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=np.unique(self.train_labels)).plot()
+
+
+# Loading the models datasets
+breast_cancer_model = model_dataset(*sklearn.datasets.load_breast_cancer(return_X_y=True), p=2, k_neighbors=5, random_seed=9999)
+wine_model = model_dataset(*sklearn.datasets.load_wine(return_X_y=True), p=2, k_neighbors=5, random_seed=9999)
+
+# Ploting models datasets
+breast_cancer_model.plot()
+wine_model.plot()
 
 
 # SCIKIT-LEARN MODEL IMPLEMENTATION
 sk_knn = sklearn.neighbors.KNeighborsClassifier(
     metric="minkowski",
-    p=p,
+    p=breast_cancer_model.p,
     n_jobs=1,
-    n_neighbors=k_neighbors
+    n_neighbors=breast_cancer_model.k_neighbors
 )
 
 # Train the model
-sk_knn.fit(train_data, train_labels)
+sk_knn.fit(breast_cancer_model.train_data, breast_cancer_model.train_labels)
 
 # Test the model
-predicted_labels = sk_knn.predict(test_data)
+predicted_labels = sk_knn.predict(breast_cancer_model.test_data)
 
 # Model analysis
-model_analysis(np.unique(train_labels), test_labels, predicted_labels)
+breast_cancer_model.analysis(predicted_labels)
 
 
 # OWN MODEL IMPLEMENTATION
@@ -127,13 +136,13 @@ class knn():
         return tuple(labels)
 
 
-own_knn = knn(p=p, k_neighbors=k_neighbors)
+own_knn = knn(p=breast_cancer_model.p, k_neighbors=breast_cancer_model.k_neighbors)
 
 # Train the model
-own_knn.fit(train_data, train_labels)
+own_knn.fit(breast_cancer_model.train_data, breast_cancer_model.train_labels)
 
 # Test the model
-own_knn.predict(test_data)
+predicted_labels = own_knn.predict(breast_cancer_model.test_data)
 
 # Model analysis
-model_analysis(np.unique(train_labels), test_labels, predicted_labels)
+breast_cancer_model.analysis(predicted_labels)
